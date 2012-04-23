@@ -31,17 +31,17 @@ attribute "WordPress/checksum",
 attribute "WordPress/dir",
   :display_name => "WordPress installation directory",
   :description => "Location to place WordPress files.",
-  :default => "/var/www/WordPress"
+  :default => "/var/www/wordpress"
   
 attribute "WordPress/db/database",
   :display_name => "WordPress MySQL database",
   :description => "WordPress will use this MySQL database to store its data.",
-  :default => "WordPressdb"
+  :default => "wordpressdb"
 
 attribute "WordPress/db/user",
   :display_name => "WordPress MySQL user",
   :description => "WordPress will connect to MySQL using this user.",
-  :default => "WordPressuser"
+  :default => "wordpressuser"
 
 attribute "WordPress/db/password",
   :display_name => "WordPress MySQL password",
