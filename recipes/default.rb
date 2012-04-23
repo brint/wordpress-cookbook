@@ -35,10 +35,24 @@ node.set['wordpress']['keys']['secure_auth'] = secure_password
 node.set['wordpress']['keys']['logged_in'] = secure_password
 node.set['wordpress']['keys']['nonce'] = secure_password
 
-remote_file "#{Chef::Config[:file_cache_path]}/wordpress-#{node['wordpress']['version']}.tar.gz" do
-  checksum node['wordpress']['checksum']
-  source "http://wordpress.org/wordpress-#{node['wordpress']['version']}.tar.gz"
-  mode "0644"
+
+if node['wordpress']['version'] == 'latest'
+  # WordPress.org does not provide a sha256 checksum, so we'll use the sha1 they do provide
+  require 'digest/sha1'
+  require 'open-uri'
+  local_file = "#{Chef::Config[:file_cache_path]}/wordpress-latest.tar.gz"
+  latest_sha1 = open('http://wordpress.org/latest.tar.gz.sha1') {|f| f.read }
+  unless File.exists?(local_file) && ( Digest::SHA1.hexdigest(File.read(local_file)) == latest_sha1 )
+    remote_file "#{Chef::Config[:file_cache_path]}/wordpress-latest.tar.gz" do
+      source "http://wordpress.org/latest.tar.gz"
+      mode "0644"
+    end
+  end
+else
+  remote_file "#{Chef::Config[:file_cache_path]}/wordpress-#{node['wordpress']['version']}.tar.gz" do
+    source "http://wordpress.org/wordpress-#{node['wordpress']['version']}.tar.gz"
+    mode "0644"
+  end
 end
 
 directory "#{node['wordpress']['dir']}" do
