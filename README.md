@@ -26,8 +26,8 @@ Cookbooks
 Attributes
 ==========
 
-* `node['wordpress']['version']` - Set the version to download.
-* `node['wordpress']['checksum']` - sha256sum of the tarball, make sure this matches for the version!
+* `node['wordpress']['version']` - Set the version to download. Using 'latest' (the default) will install the most current version.
+* `node['wordpress']['checksum']` - sha256sum of the tarball, make sure this matches for the version! (Not used for 'latest' version.)
 * `node['wordpress']['dir']` - Set the location to place wordpress files. Default is /var/www.
 * `node['wordpress']['db']['database']` - Wordpress will use this MySQL database to store its data.
 * `node['wordpress']['db']['user']` - Wordpress will connect to MySQL using this user.
