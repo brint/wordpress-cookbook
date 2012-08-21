@@ -1,0 +1,3 @@
+cookbook "wordpress" do
+  runtimes []
+end
