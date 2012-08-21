@@ -3,7 +3,7 @@ maintainer_email "cookbooks@opscode.com"
 license          "Apache 2.0"
 description      "Installs/Configures WordPress"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          "0.8.8"
+version          "1.0.0"
 
 recipe "WordPress", "Installs and configures WordPress LAMP stack on a single system"
 
@@ -22,17 +22,17 @@ attribute "WordPress/version",
   :display_name => "WordPress download version",
   :description => "Version of WordPress to download from the WordPress site or 'latest' for the current release.",
   :default => "latest"
-  
+
 attribute "WordPress/checksum",
   :display_name => "WordPress tarball checksum",
   :description => "Checksum of the tarball for the version specified.",
   :default => ""
-  
+
 attribute "WordPress/dir",
   :display_name => "WordPress installation directory",
   :description => "Location to place WordPress files.",
   :default => "/var/www/wordpress"
-  
+
 attribute "WordPress/db/database",
   :display_name => "WordPress MySQL database",
   :description => "WordPress will use this MySQL database to store its data.",
@@ -67,7 +67,7 @@ attribute "WordPress/keys/nonce",
   :display_name => "WordPress nonce key",
   :description => "WordPress nonce key.",
   :default => "randomly generated"
-  
+
 attribute "WordPress/server_aliases",
   :display_name => "WordPress Server Aliases",
   :description => "WordPress Server Aliases",

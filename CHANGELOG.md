@@ -1,3 +1,10 @@
+## v1.0.0:
+
+* [COOK-1127] - update defaults to latest version
+* [COOK-1222] - support installing "latest" version
+* [COOK-1271] - Wordpress cookbook generates new password on every
+  chef run
+
 ## v0.8.8:
 
 * [COOK-826] -  recipe doesn't quote password string
