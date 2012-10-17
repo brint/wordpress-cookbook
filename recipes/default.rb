@@ -42,6 +42,7 @@ node.set_unless['wordpress']['keys']['auth'] = secure_password
 node.set_unless['wordpress']['keys']['secure_auth'] = secure_password
 node.set_unless['wordpress']['keys']['logged_in'] = secure_password
 node.set_unless['wordpress']['keys']['nonce'] = secure_password
+node.set_unless['wordpress']['db']['admin_password'] = node['mysql']['server_root_password']
 
 
 if node['wordpress']['version'] == 'latest'
@@ -78,7 +79,7 @@ execute "untar-wordpress" do
 end
 
 execute "mysql-install-wp-privileges" do
-  command "/usr/bin/mysql -u root -p\"#{node['mysql']['server_root_password']}\" < #{node['mysql']['conf_dir']}/wp-grants.sql"
+  command "/usr/bin/mysql -u #{node['wordpress']['db']['admin_user']} -p\"#{node['wordpress']['db']['admin_password']}\" -h #{node['wordpress']['db']['host']} < #{node['mysql']['conf_dir']}/wp-grants.sql"
   action :nothing
 end
 
@@ -96,13 +97,13 @@ template "#{node['mysql']['conf_dir']}/wp-grants.sql" do
 end
 
 execute "create #{node['wordpress']['db']['database']} database" do
-  command "/usr/bin/mysqladmin -u root -p\"#{node['mysql']['server_root_password']}\" create #{node['wordpress']['db']['database']}"
+  command "/usr/bin/mysqladmin -u #{node['wordpress']['db']['admin_user']} -p\"#{node['wordpress']['db']['admin_password']}\" -h #{node['wordpress']['db']['host']} create #{node['wordpress']['db']['database']}"
   not_if do
     # Make sure gem is detected if it was just installed earlier in this recipe
     require 'rubygems'
     Gem.clear_paths
     require 'mysql'
-    m = Mysql.new("localhost", "root", node['mysql']['server_root_password'])
+    m = Mysql.new(node['wordpress']['db']['host'], node['wordpress']['db']['admin_user'], node['wordpress']['db']['admin_password'])
     m.list_dbs.include?(node['wordpress']['db']['database'])
   end
   notifies :create, "ruby_block[save node data]", :immediately unless Chef::Config[:solo]
@@ -128,6 +129,7 @@ template "#{node['wordpress']['dir']}/wp-config.php" do
   group "root"
   mode "0644"
   variables(
+    :host            => node['wordpress']['db']['host'],
     :database        => node['wordpress']['db']['database'],
     :user            => node['wordpress']['db']['user'],
     :password        => node['wordpress']['db']['password'],

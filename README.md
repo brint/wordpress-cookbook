@@ -13,7 +13,7 @@ Platform
 
 Tested on:
 
-* Ubuntu 9.04, 9.10, 10.04
+* Ubuntu 9.04, 9.10, 10.04, 12.04
 
 Cookbooks
 ---------
@@ -29,7 +29,10 @@ Attributes
 * `node['wordpress']['version']` - Set the version to download. Using 'latest' (the default) will install the most current version.
 * `node['wordpress']['checksum']` - sha256sum of the tarball, make sure this matches for the version! (Not used for 'latest' version.)
 * `node['wordpress']['dir']` - Set the location to place wordpress files. Default is /var/www.
-* `node['wordpress']['db']['database']` - Wordpress will use this MySQL database to store its data.
+* `node['wordpress']['db']['host']` - Wordpress will use this as the host to install the database on. Default 127.0.0.1
+* `node['wordpress']['db']['admin_user']` - The admin user wordpress will connect to the host with, the admin user must have permissions to create a database and users.  Default is root
+* `node['wordpress']['db']['admin_password']` - The admin password to use for the host.  The default is the mysql server.
+* `node['wordpress']['db']['database']` - Wordpress will create and use this MySQL database to store its data.
 * `node['wordpress']['db']['user']` - Wordpress will connect to MySQL using this user.
 * `node['wordpress']['db']['password']` - Password for the Wordpress MySQL user. The default is a randomly generated string.
 * `node['wordpress']['server_aliases']` - Array of ServerAliases used in apache vhost. Default is `node['fqdn']`.
