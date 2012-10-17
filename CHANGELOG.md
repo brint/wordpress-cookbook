@@ -1,3 +1,6 @@
+
+* [COOK-1783] - Cookbook now supports a remote host and named admin user and password.
+
 ## v1.0.0:
 
 * [COOK-1127] - update defaults to latest version
