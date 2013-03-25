@@ -58,7 +58,7 @@ if node['wordpress']['version'] == 'latest'
   end
 else
   remote_file "#{Chef::Config[:file_cache_path]}/wordpress-#{node['wordpress']['version']}.tar.gz" do
-    source "http://wordpress.org/wordpress-#{node['wordpress']['version']}.tar.gz"
+    source "#{node['wordpress']['repourl']}/wordpress-#{node['wordpress']['version']}.tar.gz"
     mode "0644"
   end
 end
