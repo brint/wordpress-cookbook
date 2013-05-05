@@ -16,6 +16,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+include_recipe "apt" if node['platform_family'] == "debian"
 
 include_recipe "apache2"
 include_recipe "mysql::server"
