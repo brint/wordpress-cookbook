@@ -116,8 +116,9 @@ ruby_block "save node data" do
   not_if { Chef::Config[:solo] }
 end
 
-log "Navigate to 'http://#{server_fqdn}/wp-admin/install.php' to complete wordpress installation" do
+log "install_message"
   action :nothing
+  message "Navigate to 'http://#{server_fqdn}/wp-admin/install.php' to complete wordpress installation"
 end
 
 template "#{node['wordpress']['dir']}/wp-config.php" do
@@ -134,7 +135,7 @@ template "#{node['wordpress']['dir']}/wp-config.php" do
     :logged_in_key   => node['wordpress']['keys']['logged_in'],
     :nonce_key       => node['wordpress']['keys']['nonce']
   )
-  notifies :write, "log[Navigate to 'http://#{server_fqdn}/wp-admin/install.php' to complete wordpress installation]"
+  notifies :write, "log[install_message]"
 end
 
 apache_site "000-default" do
