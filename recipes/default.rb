@@ -50,10 +50,11 @@ if node['wordpress']['version'] == 'latest'
   require 'open-uri'
   local_file = "#{Chef::Config[:file_cache_path]}/wordpress-latest.tar.gz"
   latest_sha1 = open('http://wordpress.org/latest.tar.gz.sha1') {|f| f.read }
-  remote_file "#{Chef::Config[:file_cache_path]}/wordpress-latest.tar.gz" do
-    source "http://wordpress.org/latest.tar.gz"
-    mode "0644"
-    not_if { ::File.exists?(local_file) && ( Digest::SHA1.hexdigest(::File.read(local_file)) == latest_sha1 )}
+  unless File.exists?(local_file) && ( Digest::SHA1.hexdigest(File.read(local_file)) == latest_sha1 )
+    remote_file "#{Chef::Config[:file_cache_path]}/wordpress-latest.tar.gz" do
+      source "http://wordpress.org/latest.tar.gz"
+      mode "0644"
+    end
   end
 else
   remote_file "#{Chef::Config[:file_cache_path]}/wordpress-#{node['wordpress']['version']}.tar.gz" do
@@ -62,7 +63,7 @@ else
   end
 end
 
-directory node['wordpress']['dir'] do
+directory "#{node['wordpress']['dir']}" do
   owner "root"
   group "root"
   mode "0755"
@@ -108,12 +109,13 @@ execute "create #{node['wordpress']['db']['database']} database" do
 end
 
 # save node data after writing the MYSQL root password, so that a failed chef-client run that gets this far doesn't cause an unknown password to get applied to the box without being saved in the node data.
-ruby_block "save node data" do
-  block do
-    node.save
+unless Chef::Config[:solo]
+  ruby_block "save node data" do
+    block do
+      node.save
+    end
+    action :create
   end
-  action :create
-  not_if { Chef::Config[:solo] }
 end
 
 log "install_message"
@@ -144,7 +146,7 @@ end
 
 web_app "wordpress" do
   template "wordpress.conf.erb"
-  docroot node['wordpress']['dir']
+  docroot "#{node['wordpress']['dir']}"
   server_name server_fqdn
   server_aliases node['wordpress']['server_aliases']
 end
