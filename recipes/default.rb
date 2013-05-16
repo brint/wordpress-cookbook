@@ -118,7 +118,7 @@ unless Chef::Config[:solo]
   end
 end
 
-log "install_message"
+log "wordpress_install_message"
   action :nothing
   message "Navigate to 'http://#{server_fqdn}/wp-admin/install.php' to complete wordpress installation"
 end
@@ -137,7 +137,7 @@ template "#{node['wordpress']['dir']}/wp-config.php" do
     :logged_in_key   => node['wordpress']['keys']['logged_in'],
     :nonce_key       => node['wordpress']['keys']['nonce']
   )
-  notifies :write, "log[install_message]"
+  notifies :write, "log[wordpress_install_message]"
 end
 
 apache_site "000-default" do
