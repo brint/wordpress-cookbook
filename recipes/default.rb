@@ -63,7 +63,7 @@ else
   end
 end
 
-directory "#{node['wordpress']['dir']}" do
+directory node['wordpress']['dir'] do
   owner "root"
   group "root"
   mode "0755"
