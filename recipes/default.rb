@@ -111,7 +111,7 @@ unless Chef::Config[:solo]
   end
 end
 
-log "wordpress_install_message"
+log "wordpress_install_message" do
   action :nothing
   message "Navigate to 'http://#{server_fqdn}/wp-admin/install.php' to complete wordpress installation"
 end
@@ -139,7 +139,7 @@ end
 
 web_app "wordpress" do
   template "wordpress.conf.erb"
-  docroot "#{node['wordpress']['dir']}"
+  docroot node['wordpress']['dir']
   server_name server_fqdn
   server_aliases node['wordpress']['server_aliases']
 end
