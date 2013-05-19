@@ -19,17 +19,10 @@
 
 include_recipe "apache2"
 include_recipe "mysql::server"
+include_recipe "mysql::ruby"
 include_recipe "php"
 include_recipe "php::module_mysql"
 include_recipe "apache2::mod_php5"
-
-# Make sure the mysql gem is installed. This looks like it will change with 
-# the release of 0.10.10 and the inclusion of the new chef_gem. 
-# code curtesy @hectcastro
-# http://tickets.opscode.com/browse/COOK-1009
-gem_package "mysql" do
-  action :install
-end
 
 if node.has_key?("ec2")
   server_fqdn = node['ec2']['public_hostname']
