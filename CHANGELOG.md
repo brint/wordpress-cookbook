@@ -1,3 +1,18 @@
+## v1.1.0
+
+This version updates support for test kitchen to version 1.0. See
+TESTING.md
+
+### Bug
+
+- [COOK-1393]: wordpress recipe should use mysql::ruby to ensure ruby
+  extension is installed
+- [COOK-2984]: wordpress cookbook has foodcritic failures
+
+### Improvement
+
+- [COOK-2661]: Allow downloads from other repos for wordpress install
+
 ## v1.0.0:
 
 * [COOK-1127] - update defaults to latest version
