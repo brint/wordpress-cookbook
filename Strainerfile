@@ -1,0 +1,3 @@
+knife:        bundle exec knife cookbook test $COOKBOOK
+foodcritic:   bundle exec foodcritic -f any $SANDBOX/$COOKBOOK --tags ~FC023 --tags ~FC037
+kitchen:      bundle exec kitchen test
