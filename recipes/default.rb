@@ -125,6 +125,7 @@ template "#{node['wordpress']['dir']}/wp-config.php" do
     :database        => node['wordpress']['db']['database'],
     :user            => node['wordpress']['db']['user'],
     :password        => node['wordpress']['db']['password'],
+    :dbhost          => node['wordpress']['db']['dbhost'],
     :auth_key        => node['wordpress']['keys']['auth'],
     :secure_auth_key => node['wordpress']['keys']['secure_auth'],
     :logged_in_key   => node['wordpress']['keys']['logged_in'],
