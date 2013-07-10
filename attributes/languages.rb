@@ -1,7 +1,7 @@
 #
 # Author:: Barry Steinglass (<barry@opscode.com>)
 # Cookbook Name:: wordpress
-# Attributes:: wordpress
+# Attributes:: languages
 #
 # Copyright 2009-2010, Opscode, Inc.
 #
@@ -18,12 +18,10 @@
 # limitations under the License.
 #
 
-# General settings
-default['wordpress']['version'] = "latest"
-default['wordpress']['checksum'] = ""
-default['wordpress']['repourl'] = "http://wordpress.org/"
-default['wordpress']['dir'] = "/var/www/wordpress"
-default['wordpress']['db']['database'] = "wordpressdb"
-default['wordpress']['db']['user'] = "wordpressuser"
-default['wordpress']['server_aliases'] = [node['fqdn']]
-default['wordpress']['languages']["lang"] = ""
+# see http://translate.wordpress.org/projects/wp
+default['wordpress']['languages']['repourl'] = 'http://translate.wordpress.org/projects/wp'
+
+# "3.5.x"
+default['wordpress']['languages']['version'] = ""
+
+default['wordpress']['languages']["projects"] = ["main", "admin", "admin/network", "cc"]
