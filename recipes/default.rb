@@ -128,7 +128,8 @@ template "#{node['wordpress']['dir']}/wp-config.php" do
     :auth_key        => node['wordpress']['keys']['auth'],
     :secure_auth_key => node['wordpress']['keys']['secure_auth'],
     :logged_in_key   => node['wordpress']['keys']['logged_in'],
-    :nonce_key       => node['wordpress']['keys']['nonce']
+    :nonce_key       => node['wordpress']['keys']['nonce'],
+    :language        => node['wordpress']['language'],
   )
   notifies :write, "log[wordpress_install_message]"
 end
