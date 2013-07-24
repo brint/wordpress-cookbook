@@ -22,6 +22,7 @@
 default['wordpress']['version'] = "latest"
 default['wordpress']['checksum'] = ""
 default['wordpress']['repourl'] = "http://wordpress.org/"
+default['wordpress']['language'] = ""
 default['wordpress']['dir'] = "/var/www/wordpress"
 default['wordpress']['db']['database'] = "wordpressdb"
 default['wordpress']['db']['user'] = "wordpressuser"
