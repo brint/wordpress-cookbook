@@ -45,7 +45,7 @@ execute "Download WordPress" do
   only_if { Dir["#{dir}/*"].empty? }
 end
 
-db_config = node['wordpress']['db'].map { |k,v| "--db#{k}=#{v}" }.join(" ")
+db_config = node['wordpress']['db'].map { |k,v| %<--db#{k}="#{v}"> }.join(" ")
 execute "Configure WordPress" do
   action :run
   cwd dir
@@ -60,7 +60,7 @@ execute "Create WordPress Tables" do
   returns [0,1] # Command returns 1 if DB exists
 end
 
-blog_config = node['wordpress']['blog'].map { |k, v| "--#{k}=#{v}" }.join(" ")
+blog_config = node['wordpress']['blog'].map { |k, v| %<--#{k}="#{v}"> }.join(" ")
 execute "Install WordPress" do
   action :run
   cwd dir
