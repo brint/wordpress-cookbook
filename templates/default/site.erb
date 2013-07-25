@@ -1,0 +1,24 @@
+<VirtualHost *:80>
+
+        DocumentRoot <%= node['wordpress']['dir'] %>
+        <Directory />
+                Options FollowSymLinks
+                AllowOverride None
+        </Directory>
+        <Directory <%= node['wordpress']['dir'] %>>
+                Options Indexes FollowSymLinks MultiViews
+                Options Indexes FollowSymLinks ExecCGI MultiViews
+                AllowOverride None
+                Order allow,deny
+                allow from all
+        </Directory>
+
+        ErrorLog <%= node['apache']['log_dir'] %>/error.log
+
+        # Possible values include: debug, info, notice, warn, error, crit,
+        # alert, emerg.
+        LogLevel warn
+
+        CustomLog <%= node['apache']['log_dir'] %>/access.log combined
+        ServerSignature On
+</VirtualHost>
