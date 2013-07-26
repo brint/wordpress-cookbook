@@ -29,9 +29,11 @@ action :install do
     args << @new_resource.plugin_name
     args << "--version=#{@new_resource.version}"
   else
-    zip = "#{Chef::Config[:file_cache_path]}/#{new_resource.plugin_name}.zip"
-    remote_file zip { source @new_resource.source }
-    args << @new_resource.source
+    archive = "#{Chef::Config[:file_cache_path]}/#{@new_resource.plugin_name}.zip"
+    archive_source = @new_resource.source
+    shell_out!("curl -L #{archive_source} > #{archive}")
+    
+    args << %<"#{archive}">
   end
   
   wp!("plugin install #{args.join(' ')}")
@@ -60,13 +62,13 @@ action :deactivate do
 end
 
 def installed?
-  shell_out("#{node['wordpress']['bin']} --path=\"#{path}\" plugin status #{@new_resource.plugin_name}").exitstatus == 0
+  shell_out(%<#{node['wordpress']['bin']} --path="#{path}" plugin status #{@new_resource.plugin_name}>).exitstatus == 0
 end
 
 def path
-  node['wordpress']['dir'].gsub('/', '\\')
+  node['wordpress']['dir']
 end
 
 def wp!(args)
-  shell_out!("#{node['wordpress']['bin']} --path=\"#{path}\" #{args}")
+  shell_out!(%<#{node['wordpress']['bin']} --path="#{path}" #{args}>)
 end
