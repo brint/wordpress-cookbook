@@ -43,5 +43,4 @@ end
 
 wordpress_plugin 'acs' do
   action :activate
-  plugin_name config['name']
 end
