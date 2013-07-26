@@ -29,6 +29,8 @@ action :install do
     args << @new_resource.plugin_name
     args << "--version=#{@new_resource.version}"
   else
+    zip = "#{Chef::Config[:file_cache_path]}/#{new_resource.plugin_name}.zip"
+    remote_file zip { source @new_resource.source }
     args << @new_resource.source
   end
   
