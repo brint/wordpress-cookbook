@@ -3,20 +3,16 @@ include_recipe "mysql::server"
 ::Chef::Recipe.send(:include, Opscode::OpenSSL::Password)
 ::Chef::Recipe.send(:include, Wordpress::GenDBPrefix)
 
-class Chef::Resource::Execute
-  def mysql_query(query)
-    %<mysql.exe -u root -p"#{node['mysql']['server_root_password']}" -e "#{query}">
-  end
-end
-
 node.set_unless['wordpress']['db']['pass'] = secure_password
 node.set_unless['wordpress']['db']['prefix'] = random_wpdbprefix_string
+node.save
 
 db = node['wordpress']['db']
 user = "'#{db['user']}'@'#{node['wordpress']['host']}'"
 class Chef::Resource::Execute
   def mysql_query(query)
-    %<mysql.exe -u root -p"#{node['mysql']['server_root_password']}" -e "#{query}">
+    bin = (platform? 'windows') ? 'mysql.exe' : 'mysql'
+    %<#{bin} --user=root --password="#{node['mysql']['server_root_password']}" --execute="#{query}">
   end
 end
 
