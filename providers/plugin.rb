@@ -37,28 +37,43 @@ action :install do
   end
   
   wp!("plugin install #{args.join(' ')}")
+  @new_resource.updated_by_last_action(true)
 end
 
 action :upgrade do
+  wp!("plugin status ${@new_resource.plugin_name}").stdout[/Version: (.*)/]
+  current_version = $1
+  
   wp!("plugin update #{@new_resource.plugin_name} --version=#{@new_resource.version}")
+  
+  wp!("plugin status ${@new_resource.plugin_name}").stdout[/Version: (.*)/]
+  new_version = $1
+  
+  @new_resource.updated_by_last_action(current_version != new_version)
 end
 
 action :remove do
   next unless installed?
   wp!("plugin uninstall #{@new_resource.plugin_name} --no-delete")
+  @new_resource.updated_by_last_action(true)
 end
 
 action :purge do
   next unless installed?
   wp!("plugin uninstall #{@new_resource.plugin_name}")
+  @new_resource.updated_by_last_action(true)
 end
 
 action :activate do
+  next if wp!("plugin status #{@new_resource.plugin_name}").stdout[/Status: .*Active/]
   wp!("plugin activate #{@new_resource.plugin_name}")
+  @new_resource.updated_by_last_action(true)
 end
 
 action :deactivate do
+  next unless wp!("plugin status #{@new_resource.plugin_name}").stdout[/Status: .*Active/]
   wp!("plugin activate #{@new_resource.plugin_name}")
+  @new_resource.updated_by_last_action(true)
 end
 
 def installed?

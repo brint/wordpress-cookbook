@@ -22,11 +22,15 @@ require 'chef/mixin/shell_out'
 include Chef::Mixin::ShellOut
 
 action :set do
-  wp!(%<option update "#{@new_resource.option}" "#{new_resource.value}">)
+  current_value = wp!(%<option get "#{new_resource.option}">).stdout.chop rescue :dne
+  @new_resource.updated_by_last_action(current_value != @new_resource.value)
+  
+  wp!(%<option update "#{@new_resource.option}" "#{@new_resource.value}">)
 end
 
 action :delete do
   wp!(%<option delete "#{@new_resource.option}">)
+  @new_resource.updated_by_last_action(true)
 end
 
 def path
