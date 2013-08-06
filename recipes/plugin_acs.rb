@@ -33,7 +33,7 @@ template "acs_config" do
   action :create
   source 'plugin_acs_config.erb'
   path(lazy do
-    base_dir = node['wordpress']['dir'].gsub('/', '\\')
+    base_dir = node['wordpress']['dir'].gsub('/', File::Separator)
     cmd = shell_out!("#{node['wordpress']['bin']} --path=\"#{base_dir}\" plugin path #{config['name']}")
     dir = File.dirname(cmd.stdout.gsub('\\', '/'))
     "#{dir}/acs-wp-plugin-config.php"
