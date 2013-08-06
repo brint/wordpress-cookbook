@@ -9,5 +9,5 @@ execute "Install wp-cli" do
   action :run
   cwd dir
   command "#{bin} require --prefer-source wp-cli/wp-cli=@dev"
-  not_if { system node['wordpress']['bin'] }
+  not_if { system "#{node['wordpress']['bin']} --version" }
 end
