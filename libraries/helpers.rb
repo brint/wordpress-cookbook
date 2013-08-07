@@ -19,7 +19,7 @@
 #
 
 module Wordpress
-  module GenDBPrefix
+  module Helpers
     def random_wpdbprefix_string
       randostring = String.new
       
@@ -30,6 +30,12 @@ module Wordpress
       end
 
       randostring
+    end
+
+    def is_local_host?(host)
+      require 'socket'
+      require 'resolv'
+      Socket.ip_address_list.map { |a| a.ip_address }.include? Resolv.getaddress host
     end
   end
 end
