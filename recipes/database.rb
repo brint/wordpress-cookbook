@@ -18,7 +18,7 @@ if is_local_host? db['host']
     end
   end
 
-  user = "'#{db['user']}'@'#{node['wordpress']['host']}'"
+  user = "'#{db['user']}'@'#{db['host']}'"
   create_user = %<CREATE USER #{user} IDENTIFIED BY '#{db['pass']}';>
   user_exists = %<SELECT 1 FROM mysql.user WHERE user = '#{db['user']}';>
   grant_privileges = %<GRANT ALL PRIVILEGES ON #{db['name']}.* TO #{user};>

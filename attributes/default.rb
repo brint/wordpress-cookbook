@@ -20,7 +20,6 @@
 
 # General settings
 default['wordpress']['version'] = "latest"
-default['wordpress']['host'] = "localhost"
 
 default['wordpress']['db']['name'] = "wordpressdb"
 default['wordpress']['db']['user'] = "wordpressuser"
