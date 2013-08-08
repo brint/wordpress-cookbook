@@ -46,7 +46,6 @@ execute "Download WordPress" do
 end
 
 db_config = node['wordpress']['db'].map { |k,v| %<--db#{k}="#{v}"> }.join(" ")
-
 execute "Configure WordPress" do
   action :run
   cwd dir
