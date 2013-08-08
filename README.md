@@ -1,7 +1,7 @@
 Description
 ===========
 
-Installs and configures Wordpress according to the instructions at http://codex.wordpress.org/Installing_WordPress. Does not set up a wordpress blog. You will need to do this manually by going to http://hostname/wp-admin/install.php (this URL may be different if you change the attribute values).
+Downloads, installs, and configures WordPress using [wp-cli](https://github.com/wp-cli/wp-cli). It **will** actually set up the blog itself, and by the end of the recipe you will have a live, working blog.
 
 Requirements
 ============
@@ -9,11 +9,13 @@ Requirements
 Platform
 --------
 
-* Debian, Ubuntu
+* Ubuntu, Windows
 
 Tested on:
 
-* Ubuntu 9.04, 9.10, 10.04
+* Ubuntu 10.04
+* Windows Server 2012
+
 
 Cookbooks
 ---------
@@ -21,42 +23,62 @@ Cookbooks
 * mysql
 * php
 * apache2
+* windows
+* curl
+* git
 * opensssl (uses library to generate secure passwords)
 
 Attributes
 ==========
 
-* `node['wordpress']['version']` - Set the version to download. Using 'latest' (the default) will install the most current version.
-* `node['wordpress']['checksum']` - sha256sum of the tarball, make sure this matches for the version! (Not used for 'latest' version.)
-* `node['wordpress']['dir']` - Set the location to place wordpress files. Default is /var/www.
-* `node['wordpress']['db']['database']` - Wordpress will use this MySQL database to store its data.
-* `node['wordpress']['db']['user']` - Wordpress will connect to MySQL using this user.
-* `node['wordpress']['db']['password']` - Password for the Wordpress MySQL user. The default is a randomly generated string.
-* `node['wordpress']['server_aliases']` - Array of ServerAliases used in apache vhost. Default is `node['fqdn']`.
+### WordPress
 
-Attributes will probably never need to change (these all default to randomly generated strings):
+* `node['wordpress']['version']` - Version of WordPress to download. Use 'latest' to download most recent version.
+* `node['wordpress']['bin']` - Name of the wp-cli executable installed by Composer.
+* `node['wordpress']['dir']` - Location to place WordPress files.
+___
+* `node['wordpress']['db']['name']` - Name of the WordPress MySQL database.
+* `node['wordpress']['db']['host']` - Host of the WordPress MySQL database.
+* `node['wordpress']['db']['user']` - Name of the WordPress MySQL user.
+* `node['wordpress']['db']['pass']` - Password of the WordPress MySQL user. By default, generated using openssl cookbook.
+* `node['wordpress']['db']['prefix']` - Prefix of all MySQL tables created by WordPress. By default, generated using openssl cookbook.
+___
+* `node['wordpress']['blog']['title']` - Title of the WordPress blog.
+* `node['wordpress']['blog']['admin_name']` - Name of the WordPress admin.
+* `node['wordpress']['blog']['admin_password]` - Password of the WordPress admin.
+* `node['wordpress']['blog']['admin_email]` - Email address of the WordPress admin.
+* `node['wordpress']['blog']['url']` - URL on which the WordPress blog is hosted.
 
-* `node['wordpress']['keys']['auth']`
-* `node['wordpress']['keys']['secure_auth']`
-* `node['wordpress']['keys']['logged_in']`
-* `node['wordpress']['keys']['nonce']`
+### ACS Plugin (Windows Azure AppFabric Access Control Service)
+* `node['wordpress']['plugin']['acs']['name']` - Name of the WordPress plugin
+* `node['wordpress']['plugin']['acs']['version']` - Version of the WordPress plugin. Use 'dev' to download most recent version.
+* `node['wordpress']['plugin']['acs']['source']` - URL of WordPress plugin. Set as nil to use the plugin found on the WordPress site.
+___
+* `node['wordpress']['plugin']['acs']['namespace']`
+* `node['wordpress']['plugin']['acs']['realm']`
+* `node['wordpress']['plugin']['acs']['key']`
 
-The random generation is handled with the secure_password method in the openssl cookbook which is a cryptographically secure random generator and not predictable like the random method in the ruby standard library.
+### WAS Plugin (Windows Azure Storage)
+* `node['wordpress']['plugin']['was']['name']` - Name of the WordPress plugin
+* `node['wordpress']['plugin']['was']['version']` - Version of the WordPress plugin. Use 'dev' to download most recent version.
+* `node['wordpress']['plugin']['was']['source']` - URL of WordPress plugin. Set as nil to use the plugin found on the WordPress site.
+___
+* `node['wordpress']['plugin']['was']['azure']['name']`
+* `node['wordpress']['plugin']['was']['azure']['key']`
+* `node['wordpress']['plugin']['was']['azure']['container']`
+* `node['wordpress']['plugin']['was']['azure']['default?']`
+* `node['wordpress']['plugin']['was']['azure']['per_user_settings?']`
+* `node['wordpress']['plugin']['was']['azure']['cname']`
+___
+* `node['wordpress']['plugin']['was']['proxy']['host']`
+* `node['wordpress']['plugin']['was']['proxy']['port']`
+* `node['wordpress']['plugin']['was']['proxy']['user']`
+* `node['wordpress']['plugin']['was']['proxy']['pass']`
 
 Usage
 =====
 
-If a different version than the default is desired, download that version and get the SHA256 checksum (sha256sum on Linux systems), and set the version and checksum attributes.
-
-Add the "wordpress" recipe to your node's run list or role, or include the recipe in another cookbook.
-
-Chef will install and configure mysql, php, and apache2 according to the instructions at http://codex.wordpress.org/Installing_WordPress. Does not set up a wordpress blog. You will need to do this manually by going to http://hostname/wp-admin/install.php (this URL may be different if you change the attribute values).
-
-The mysql::server recipe needs to come first, and contain an execute resource to install mysql privileges from the grants.sql template in this cookbook.
-
-## Note about MySQL
-
-This cookbook will decouple the mysql::server and be smart about detecting whether to use a local database or find a database server in the environment in a later version.
+Add the "wordpress" recipe to your node's run list or role, or include the recipe in another cookbook. The cookbooks also provides the 'wordpress_option' and 'wordpress_plugin' resources for managing WordPress configuration and the installation of WordPress plugins.
 
 License and Author
 ==================
@@ -64,8 +86,9 @@ License and Author
 Author:: Barry Steinglass (barry@opscode.com)
 Author:: Joshua Timberman (joshua@opscode.com)
 Author:: Seth Chisamore (schisamo@opscode.com)
+Author:: Lucas Hansen (lucash@opscode.com)
 
-Copyright:: 2010-2011, Opscode, Inc
+Copyright:: 2010-2013, Opscode, Inc
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
