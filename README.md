@@ -36,13 +36,11 @@ Attributes
 * `node['wordpress']['version']` - Version of WordPress to download. Use 'latest' to download most recent version.
 * `node['wordpress']['bin']` - Name of the wp-cli executable installed by Composer.
 * `node['wordpress']['dir']` - Location to place WordPress files.
-___
 * `node['wordpress']['db']['name']` - Name of the WordPress MySQL database.
 * `node['wordpress']['db']['host']` - Host of the WordPress MySQL database.
 * `node['wordpress']['db']['user']` - Name of the WordPress MySQL user.
 * `node['wordpress']['db']['pass']` - Password of the WordPress MySQL user. By default, generated using openssl cookbook.
 * `node['wordpress']['db']['prefix']` - Prefix of all MySQL tables created by WordPress. By default, generated using openssl cookbook.
-___
 * `node['wordpress']['blog']['title']` - Title of the WordPress blog.
 * `node['wordpress']['blog']['admin_name']` - Name of the WordPress admin.
 * `node['wordpress']['blog']['admin_password]` - Password of the WordPress admin.
@@ -53,7 +51,6 @@ ___
 * `node['wordpress']['plugin']['acs']['name']` - Name of the WordPress plugin
 * `node['wordpress']['plugin']['acs']['version']` - Version of the WordPress plugin. Use 'dev' to download most recent version.
 * `node['wordpress']['plugin']['acs']['source']` - URL of WordPress plugin. Set as nil to use the plugin found on the WordPress site.
-___
 * `node['wordpress']['plugin']['acs']['namespace']`
 * `node['wordpress']['plugin']['acs']['realm']`
 * `node['wordpress']['plugin']['acs']['key']`
@@ -62,14 +59,12 @@ ___
 * `node['wordpress']['plugin']['was']['name']` - Name of the WordPress plugin
 * `node['wordpress']['plugin']['was']['version']` - Version of the WordPress plugin. Use 'dev' to download most recent version.
 * `node['wordpress']['plugin']['was']['source']` - URL of WordPress plugin. Set as nil to use the plugin found on the WordPress site.
-___
 * `node['wordpress']['plugin']['was']['azure']['name']`
 * `node['wordpress']['plugin']['was']['azure']['key']`
 * `node['wordpress']['plugin']['was']['azure']['container']`
 * `node['wordpress']['plugin']['was']['azure']['default?']`
 * `node['wordpress']['plugin']['was']['azure']['per_user_settings?']`
 * `node['wordpress']['plugin']['was']['azure']['cname']`
-___
 * `node['wordpress']['plugin']['was']['proxy']['host']`
 * `node['wordpress']['plugin']['was']['proxy']['port']`
 * `node['wordpress']['plugin']['was']['proxy']['user']`
