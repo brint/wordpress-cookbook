@@ -36,6 +36,8 @@ node.set_unless['wordpress']['keys']['secure_auth'] = secure_password
 node.set_unless['wordpress']['keys']['logged_in'] = secure_password
 node.set_unless['wordpress']['keys']['nonce'] = secure_password
 
+node.set_unless['wordpress']['content_dir'] = 'wp-content'
+
 
 if node['wordpress']['version'] == 'latest'
   # WordPress.org does not provide a sha256 checksum, so we'll use the sha1 they do provide
@@ -125,6 +127,7 @@ template "#{node['wordpress']['dir']}/wp-config.php" do
     :database        => node['wordpress']['db']['database'],
     :user            => node['wordpress']['db']['user'],
     :password        => node['wordpress']['db']['password'],
+    :content_dir     => node['wordpress']['content_dir'],
     :auth_key        => node['wordpress']['keys']['auth'],
     :secure_auth_key => node['wordpress']['keys']['secure_auth'],
     :logged_in_key   => node['wordpress']['keys']['logged_in'],
@@ -135,6 +138,20 @@ end
 
 apache_site "000-default" do
   enable false
+end
+
+ruby_block "Rename wp-content directory" do
+  block do
+    require 'fileutils'
+    # Move content directory if the destination doesn't already exist (if it does we don't want to overwrite it)
+    unless File.exists?("#{node['wordpress']['dir']}/#{node['wordpress']['content_dir']}")
+      File.rename("#{node['wordpress']['dir']}/wp-content", "#{node['wordpress']['dir']}/#{node['wordpress']['content_dir']}")
+    end
+    # Delete wp-content directroy if it was redownloaded during provisioning
+    if File.exists?("#{node['wordpress']['dir']}/wp-content")
+      FileUtils.rm_rf("#{node['wordpress']['dir']}/wp-content")
+    end
+  end
 end
 
 web_app "wordpress" do

@@ -33,6 +33,9 @@ define('DB_CHARSET', 'utf8');
 /** The Database Collate type. Don't change this if in doubt. */
 define('DB_COLLATE', '');
 
+define( 'WP_CONTENT_URL', WP_SITEURL . '/<%= @content_dir %>' );
+define( 'WP_CONTENT_DIR', ABSPATH . '<%= @content_dir %>' );
+
 /**#@+
  * Authentication Unique Keys.
  *
@@ -42,10 +45,10 @@ define('DB_COLLATE', '');
  *
  * @since 2.6.0
  */
-define('AUTH_KEY', '<%= @auth_key %>');
+define('AUTH_KEY',        '<%= @auth_key %>');
 define('SECURE_AUTH_KEY', '<%= @secure_auth_key %>');
-define('LOGGED_IN_KEY', '<%= @logged_in_key %>');
-define('NONCE_KEY', '<%= @nonce_key %>');
+define('LOGGED_IN_KEY',   '<%= @logged_in_key %>');
+define('NONCE_KEY',       '<%= @nonce_key %>');
 /**#@-*/
 
 /**
