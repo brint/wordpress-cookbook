@@ -33,6 +33,7 @@ Attributes
 * `node['wordpress']['db']['user']` - Wordpress will connect to MySQL using this user.
 * `node['wordpress']['db']['password']` - Password for the Wordpress MySQL user. The default is a randomly generated string.
 * `node['wordpress']['server_aliases']` - Array of ServerAliases used in apache vhost. Default is `node['fqdn']`.
+* `node['wordpress']['content_dir'] - Specify a custom name for the wordpress content directory (no leading slash).  Assumes it is a child of the specified wordpress directory.  Default is `wp-content`.
 
 Attributes will probably never need to change (these all default to randomly generated strings):
 
