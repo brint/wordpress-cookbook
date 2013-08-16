@@ -33,3 +33,15 @@ default['wordpress']['languages']['lang'] = ''
 default['wordpress']['languages']['version'] = ''
 default['wordpress']['languages']['repourl'] = 'http://translate.wordpress.org/projects/wp'
 default['wordpress']['languages']['projects'] = ['main', 'admin', 'admin_network', 'continents_cities']
+{
+  'main'              => '/',
+  'admin'             => '/admin/',
+  'admin_network'     => '/admin/network/',
+  'continents_cities' => '/cc/'
+}.each do |project,project_path|
+  # http://translate.wordpress.org/projects/wp/3.5.x/admin/network/ja/default/export-translations?format=mo
+  default['wordpress']['languages']['urls'][project] =
+    node['wordpress']['languages']['repourl'] + '/' +
+    node['wordpress']['languages']['version'] + project_path +
+    node['wordpress']['languages']['lang'] + '/default/export-translations?format=mo'
+end

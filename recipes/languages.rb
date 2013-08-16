@@ -20,13 +20,6 @@
 
 include_recipe "wordpress"
 
-projects = {
-  'main'          => {:src => '/',               :dst => ''},
-  'admin'         => {:src => '/admin/',         :dst => 'admin'},
-  'admin/network' => {:src => '/admin/network/', :dst => 'admin-network'},
-  'cc'            => {:src => '/cc/',            :dst => 'continents-cities'},
-}
-
 directory "#{node['wordpress']['dir']}/wp-content/languages" do
   owner "root"
   group "root"
@@ -37,18 +30,16 @@ end
 
 unless node['wordpress']['languages']['lang'].to_s.empty? &&
        node['wordpress']['languages']['version'].to_s.empty?
+  urls = node['wordpress']['languages']['urls']
   node['wordpress']['languages']['projects'].to_a.each do |project|
-    next unless projects[project]
+    next unless urls[project]
 
-    # http://translate.wordpress.org/projects/wp/3.5.x/admin/network/ja/default/export-translations?format=mo
-    src = "#{node['wordpress']['languages']['repourl']}/#{node['wordpress']['languages']['version']}#{projects[project][:src]}#{node['wordpress']['languages']['lang']}/default/export-translations?format=mo"
+    file = "#{node['wordpress']['dir']}/wp-content/languages/"
+    file += "#{project.tr('_', '-')}-" if project != 'main'
+    file += "#{node['wordpress']['languages']['lang']}.mo"
 
-    dst = "#{node['wordpress']['dir']}/wp-content/languages/"
-    dst += "#{projects[project][:dst]}-" unless projects[project][:dst].empty?
-    dst += "#{node['wordpress']['languages']['lang']}.mo"
-
-    remote_file dst do
-      source src
+    remote_file file do
+      source urls[project]
       owner "root"
       group "root"
       mode "0644"
