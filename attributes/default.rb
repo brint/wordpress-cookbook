@@ -1,9 +1,10 @@
 #
 # Author:: Barry Steinglass (<barry@opscode.com>)
+# Author:: Koseki Kengo (<koseki@gmail.com>)
 # Cookbook Name:: wordpress
 # Attributes:: wordpress
 #
-# Copyright 2009-2010, Opscode, Inc.
+# Copyright 2009-2013, Opscode, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -26,4 +27,9 @@ default['wordpress']['dir'] = "/var/www/wordpress"
 default['wordpress']['db']['database'] = "wordpressdb"
 default['wordpress']['db']['user'] = "wordpressuser"
 default['wordpress']['server_aliases'] = [node['fqdn']]
-default['wordpress']['languages']["lang"] = ""
+
+# Languages
+default['wordpress']['languages']['lang'] = ''
+default['wordpress']['languages']['version'] = ''
+default['wordpress']['languages']['repourl'] = 'http://translate.wordpress.org/projects/wp'
+default['wordpress']['languages']['projects'] = ['main', 'admin', 'admin_network', 'continents_cities']
