@@ -33,12 +33,16 @@ default['wordpress']['languages']['lang'] = ''
 default['wordpress']['languages']['version'] = ''
 default['wordpress']['languages']['repourl'] = 'http://translate.wordpress.org/projects/wp'
 default['wordpress']['languages']['projects'] = ['main', 'admin', 'admin_network', 'continents_cities']
+default['wordpress']['languages']['themes'] = []
 default['wordpress']['languages']['project_pathes'] = {
   'main'              => '/',
   'admin'             => '/admin/',
   'admin_network'     => '/admin/network/',
   'continents_cities' => '/cc/'
 }
+%w{ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen twenty}.each do |year|
+  default['wordpress']['languages']['project_pathes']["twenty#{year}"] = "/twenty#{year}/"
+end
 node['wordpress']['languages']['project_pathes'].each do |project,project_path|
   # http://translate.wordpress.org/projects/wp/3.5.x/admin/network/ja/default/export-translations?format=mo
   default['wordpress']['languages']['urls'][project] =

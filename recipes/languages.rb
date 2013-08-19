@@ -46,4 +46,19 @@ unless node['wordpress']['languages']['lang'].to_s.empty? &&
       action :create_if_missing
     end
   end
+
+  node['wordpress']['languages']['themes'].to_a.each do |project|
+    next unless urls[project]
+
+    file = "#{node['wordpress']['dir']}/wp-content/themes/#{project}/languages/"
+    file += "#{node['wordpress']['languages']['lang']}.mo"
+
+    remote_file file do
+      source urls[project]
+      owner "root"
+      group "root"
+      mode "0644"
+      action :create_if_missing
+    end
+  end
 end
