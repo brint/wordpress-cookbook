@@ -40,9 +40,9 @@ Attributes
 * `node['wordpress']['db']['host']` - Host of the WordPress MySQL database.
 * `node['wordpress']['db']['user']` - Name of the WordPress MySQL user.
 * `node['wordpress']['db']['pass']` - Password of the WordPress MySQL user. By default, generated using openssl cookbook.
-* `node['wordpress']['db']['prefix']` - Prefix of all MySQL tables created by WordPress. By default, generated using openssl cookbook.
+* `node['wordpress']['db']['prefix']` - Prefix of all MySQL tables created by WordPress.
 * `node['wordpress']['blog']['title']` - Title of the WordPress blog.
-* `node['wordpress']['blog']['admin_name']` - Name of the WordPress admin.
+* `node['wordpress']['blog']['admin_name']` - Name of the WordPress admin. By default, generated using openssl cookbook.
 * `node['wordpress']['blog']['admin_password]` - Password of the WordPress admin.
 * `node['wordpress']['blog']['admin_email]` - Email address of the WordPress admin.
 * `node['wordpress']['blog']['url']` - URL on which the WordPress blog is hosted.
@@ -62,8 +62,8 @@ Attributes
 * `node['wordpress']['plugin']['was']['azure']['name']`
 * `node['wordpress']['plugin']['was']['azure']['key']`
 * `node['wordpress']['plugin']['was']['azure']['container']`
-* `node['wordpress']['plugin']['was']['azure']['default?']`
-* `node['wordpress']['plugin']['was']['azure']['per_user_settings?']`
+* `node['wordpress']['plugin']['was']['azure']['default']`
+* `node['wordpress']['plugin']['was']['azure']['per_user_settings']`
 * `node['wordpress']['plugin']['was']['azure']['cname']`
 * `node['wordpress']['plugin']['was']['proxy']['host']`
 * `node['wordpress']['plugin']['was']['proxy']['port']`

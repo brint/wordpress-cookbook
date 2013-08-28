@@ -4,7 +4,6 @@ include_recipe "mysql::client"
 ::Chef::Recipe.send(:include, Wordpress::Helpers)
 
 node.set_unless['wordpress']['db']['pass'] = secure_password
-node.set_unless['wordpress']['db']['prefix'] = random_wpdbprefix_string
 node.save
 
 db = node['wordpress']['db']
@@ -13,7 +12,7 @@ if is_local_host? db['host']
   
   class Chef::Resource::Execute
     def mysql_query(query)
-      bin = (platform? 'windows') ? 'mysql.exe' : 'mysql'
+      bin = (platform_family? 'windows') ? 'mysql.exe' : 'mysql'
       %<#{bin} --user=root --password="#{node['mysql']['server_root_password']}" --execute="#{query}">
     end
   end

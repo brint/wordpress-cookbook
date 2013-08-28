@@ -20,18 +20,6 @@
 
 module Wordpress
   module Helpers
-    def random_wpdbprefix_string
-      randostring = String.new
-      
-      while randostring.length < 10
-        randostring << "wp_"
-        randostring << (0...6).map{ ('a'..'z').to_a[rand(26)] }.join
-        randostring << "_"
-      end
-
-      randostring
-    end
-
     def is_local_host?(host)
       require 'socket'
       require 'resolv'

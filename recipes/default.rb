@@ -31,6 +31,10 @@ include_recipe "apache2::mod_php5"
 include_recipe "wordpress::wp_cli"
 include_recipe "wordpress::database"
 
+::Chef::Recipe.send(:include, Opscode::OpenSSL::Password)
+node.set_unless['wordpress']['blog']['admin_password'] = secure_password
+node.save
+
 bin = node['wordpress']['bin']
 dir = node['wordpress']['dir']
 

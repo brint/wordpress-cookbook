@@ -31,7 +31,7 @@ action :install do
   else
     archive = "#{Chef::Config[:file_cache_path]}/#{@new_resource.plugin_name}.zip"
     archive_source = @new_resource.source
-    shell_out!("curl -L #{archive_source} > #{archive}")
+    remote_file(archive) { source archive_source }.run_action(:create)
     
     args << %<"#{archive}">
   end
@@ -77,6 +77,8 @@ action :deactivate do
 end
 
 def installed?
+  # Note that we use shell_out rather than shell_out! here because the failure of this command isn't necessarily
+  # pathological, and just indicates that the given plugin is not yet installed.
   shell_out(%<#{node['wordpress']['bin']} --path="#{path}" plugin status #{@new_resource.plugin_name}>).exitstatus == 0
 end
 
