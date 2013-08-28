@@ -15,6 +15,7 @@ end
 depends "apache2", ">= 0.99.4"
 depends "mysql", ">= 1.0.5"
 depends "build-essential"
+depends "curl"
 
 %w{ debian ubuntu }.each do |os|
   supports os
