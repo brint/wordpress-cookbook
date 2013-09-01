@@ -36,7 +36,7 @@ define('DB_COLLATE', '');
 define('WP_CONTENT_URL', '/<%= @content_dir %>');
 define('WP_CONTENT_DIR', ABSPATH . '<%= @content_dir %>');
 
-define('WP_DEBUG', <% concat @wp_debug ? "true" : "false" %>);
+define('WP_DEBUG', <%= @wp_debug ? "true" : "false" %>);
 
 /**#@+
  * Authentication Unique Keys.
