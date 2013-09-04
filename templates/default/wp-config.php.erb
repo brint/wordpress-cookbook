@@ -33,6 +33,21 @@ define('DB_CHARSET', 'utf8');
 /** The Database Collate type. Don't change this if in doubt. */
 define('DB_COLLATE', '');
 
+define('WP_CONTENT_URL', '/<%= @content_dir %>');
+define('WP_CONTENT_DIR', ABSPATH . '<%= @content_dir %>');
+
+<% @custom_options.each do |name, value| %>
+define('<%= name %>', <%
+	if value.is_a?(TrueClass) || value.is_a?(FalseClass)  or value.is_a? Fixnum
+		%><%= value %><%
+	else
+		%>'<%= value %>'<%
+	end
+%>);
+<% end %>
+
+define('WP_DEBUG', <%= @wp_debug ? "true" : "false" %>);
+
 /**#@+
  * Authentication Unique Keys.
  *
@@ -42,10 +57,10 @@ define('DB_COLLATE', '');
  *
  * @since 2.6.0
  */
-define('AUTH_KEY', '<%= @auth_key %>');
+define('AUTH_KEY',        '<%= @auth_key %>');
 define('SECURE_AUTH_KEY', '<%= @secure_auth_key %>');
-define('LOGGED_IN_KEY', '<%= @logged_in_key %>');
-define('NONCE_KEY', '<%= @nonce_key %>');
+define('LOGGED_IN_KEY',   '<%= @logged_in_key %>');
+define('NONCE_KEY',       '<%= @nonce_key %>');
 /**#@-*/
 
 /**
@@ -54,7 +69,7 @@ define('NONCE_KEY', '<%= @nonce_key %>');
  * You can have multiple installations in one database if you give each a unique
  * prefix. Only numbers, letters, and underscores please!
  */
-$table_prefix  = 'wp_';
+$table_prefix  = '<%= @table_prefix %>';
 
 /**
  * WordPress Localized Language, defaults to English.
