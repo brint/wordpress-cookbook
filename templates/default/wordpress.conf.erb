@@ -45,6 +45,10 @@
   ErrorLog <%= node['apache']['log_dir'] %>/<%= @params[:name] %>-error.log
   CustomLog <%= node['apache']['log_dir'] %>/<%= @params[:name] %>-access.log combined
 
+  SSLEngine on
+  SSLCertificateFile /etc/httpd/ssl/apache.crt
+  SSLCertificateKeyFile /etc/httpd/ssl/apache.key
+
   RewriteEngine On
   RewriteLog <%= node['apache']['log_dir'] %>/<%= @application_name %>-rewrite.log
   RewriteLogLevel 0

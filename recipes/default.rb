@@ -39,8 +39,9 @@ node.set_unless['wordpress']['keys']['nonce'] = secure_password
 
 node.set_unless['wordpress']['content_dir'] = 'wp-content'
 node.set_unless['wordpress']['wp_debug'] = false
+node.set_unless['wordpress']['table_prefix'] = 'wp_'
 
-node.set_unless['wordpress']['custom_options'] = ''
+node.set_unless['wordpress']['custom_options'] = {}
 
 
 if node['wordpress']['version'] == 'latest'
@@ -133,6 +134,7 @@ template "#{node['wordpress']['dir']}/wp-config.php" do
     :password        => node['wordpress']['db']['password'],
     :content_dir     => node['wordpress']['content_dir'],
     :wp_debug        => node['wordpress']['wp_debug'],
+    :table_prefix    => node['wordpress']['table_prefix'],
     :custom_options  => node['wordpress']['custom_options'],
     :auth_key        => node['wordpress']['keys']['auth'],
     :secure_auth_key => node['wordpress']['keys']['secure_auth'],
