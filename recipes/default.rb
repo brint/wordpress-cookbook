@@ -24,6 +24,7 @@ include_recipe "php"
 include_recipe "php::module_mysql"
 include_recipe "apache2::mod_php5"
 
+
 if node.has_key?("ec2")
   server_fqdn = node['ec2']['public_hostname']
 else
@@ -38,6 +39,8 @@ node.set_unless['wordpress']['keys']['nonce'] = secure_password
 
 node.set_unless['wordpress']['content_dir'] = 'wp-content'
 node.set_unless['wordpress']['wp_debug'] = false
+
+node.set_unless['wordpress']['custom_options'] = ''
 
 
 if node['wordpress']['version'] == 'latest'
@@ -130,6 +133,7 @@ template "#{node['wordpress']['dir']}/wp-config.php" do
     :password        => node['wordpress']['db']['password'],
     :content_dir     => node['wordpress']['content_dir'],
     :wp_debug        => node['wordpress']['wp_debug'],
+    :custom_options  => node['wordpress']['custom_options'],
     :auth_key        => node['wordpress']['keys']['auth'],
     :secure_auth_key => node['wordpress']['keys']['secure_auth'],
     :logged_in_key   => node['wordpress']['keys']['logged_in'],

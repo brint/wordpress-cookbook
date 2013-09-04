@@ -36,6 +36,8 @@ define('DB_COLLATE', '');
 define('WP_CONTENT_URL', '/<%= @content_dir %>');
 define('WP_CONTENT_DIR', ABSPATH . '<%= @content_dir %>');
 
+<%= @custom_options %>
+
 define('WP_DEBUG', <%= @wp_debug ? "true" : "false" %>);
 
 /**#@+
