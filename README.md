@@ -1,38 +1,110 @@
-Description
-===========
+Chef Wordpress Cookbook
+=======================
+The Chef Wordpress cookbook installs and configures Wordpress according to the instructions at http://codex.wordpress.org/Installing_WordPress.
 
-Installs and configures Wordpress according to the instructions at http://codex.wordpress.org/Installing_WordPress. Does not set up a wordpress blog. You will need to do this manually by going to http://hostname/wp-admin/install.php (this URL may be different if you change the attribute values).
+This cookbook does not set up the WordPress blog. You will need to do this manually by going to http://hostname/wp-admin/install.php (this URL may be different if you change the attribute values).
 
-Requirements
-============
 
-Platform
---------
+Installation
+------------
+Install the cookbook using knife:
 
-* Debian, Ubuntu
+    $ knife cookbook site install wordpress
 
-Tested on:
+Or, if you are using Berkshelf, add the cookbook to your Berksfile:
 
-* Ubuntu 9.04, 9.10, 10.04
+```ruby
+cookbook 'wordpress'
+```
 
-Cookbooks
----------
 
-* mysql
-* php
-* apache2
-* opensssl (uses library to generate secure passwords)
+Usage
+-----
+Add the cookbook to your `run_list` in a node or role:
+
+```json
+{
+  "run_list": [
+    "recipe[wordpress::default]"
+  ]
+}
+```
+
+Or include it in a recipe:
+
+```ruby
+# other_cookbook/metadata.rb
+# ...
+depends 'wordpress'
+```
+
+```ruby
+# other_cookbook/recipes/default.rb
+# ...
+include_recipe 'wordpress::default'
+```
+
+If a different version than the default is desired, download that version and get the SHA256 checksum (sha256sum on Linux systems), and set the version and checksum attributes.
+
 
 Attributes
-==========
+----------
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Description</th>
+      <th>Example</th>
+      <th>Default</th>
+    </tr>
+  </thead>
 
-* `node['wordpress']['version']` - Set the version to download. Using 'latest' (the default) will install the most current version.
-* `node['wordpress']['checksum']` - sha256sum of the tarball, make sure this matches for the version! (Not used for 'latest' version.)
-* `node['wordpress']['dir']` - Set the location to place wordpress files. Default is /var/www.
-* `node['wordpress']['db']['database']` - Wordpress will use this MySQL database to store its data.
-* `node['wordpress']['db']['user']` - Wordpress will connect to MySQL using this user.
-* `node['wordpress']['db']['password']` - Password for the Wordpress MySQL user. The default is a randomly generated string.
-* `node['wordpress']['server_aliases']` - Array of ServerAliases used in apache vhost. Default is `node['fqdn']`.
+  <tbody>
+    <tr>
+      <td>version</td>
+      <td>version of the wordpress to install</td>
+      <td><tt>1.2.3</tt></td>
+      <td><tt>'latest'</tt></td>
+    </tr>
+    <tr>
+      <td>checksum</td>
+      <td>sha256sum of the tarball</td>
+      <td><tt>abcd1234</tt></td>
+      <td><tt>''</tt></td>
+    </tr>
+    <tr>
+      <td>dir</td>
+      <td>location for wordpress files</td>
+      <td><tt>/nfs/wp</tt></td>
+      <td><tt>/var/www</tt></td>
+    </tr>
+    <tr>
+      <td>database</td>
+      <td>name of the database to use</td>
+      <td><tt>bob-wordpress</tt></td>
+      <td><tt>wordpressdb</tt></td>
+    </tr>
+    <tr>
+      <td>user</td>
+      <td>the user to connect to MySQL</td>
+      <td><tt>user</tt></td>
+      <td><tt>wordpressuser</tt></td>
+    </tr>
+    <tr>
+      <td>password</td>
+      <td>the password to connect to MySQL</td>
+      <td><tt>P@s$w0rD</tt></td>
+      <td><tt>(randomly generated)</tt></td>
+    </tr>
+    <tr>
+      <td>server_aliases</td>
+      <td>server aliases for Apache</td>
+      <td><tt>['foo.com']</tt></td>
+      <td><tt>[(node's FQDN)]</tt></td>
+    </tr>
+  </tbody>
+</table>
+
 
 Attributes will probably never need to change (these all default to randomly generated strings):
 
@@ -41,29 +113,28 @@ Attributes will probably never need to change (these all default to randomly gen
 * `node['wordpress']['keys']['logged_in']`
 * `node['wordpress']['keys']['nonce']`
 
-The random generation is handled with the secure_password method in the openssl cookbook which is a cryptographically secure random generator and not predictable like the random method in the ruby standard library.
 
-Usage
-=====
+Development
+-----------
+This cookbook uses Test Kitchen (1.0). To run the tests, clone the repository, install the gems, and run test kitchen:
 
-If a different version than the default is desired, download that version and get the SHA256 checksum (sha256sum on Linux systems), and set the version and checksum attributes.
+    $ git clone git://github.com/opscode-cookbooks/wordpress.git
+    $ cd wordpress
+    $ bundle install
+    $ bundle exec strainer test
 
-Add the "wordpress" recipe to your node's run list or role, or include the recipe in another cookbook.
+1. Fork the cookbook on GitHub
+2. Make changes
+3. Write appropriate tests
+4. Submit a Pull Request back to the project
+5. Open a [JIRA ticket](https://tickets.opscode.com), linking back to the Pull Request
 
-Chef will install and configure mysql, php, and apache2 according to the instructions at http://codex.wordpress.org/Installing_WordPress. Does not set up a wordpress blog. You will need to do this manually by going to http://hostname/wp-admin/install.php (this URL may be different if you change the attribute values).
 
-The mysql::server recipe needs to come first, and contain an execute resource to install mysql privileges from the grants.sql template in this cookbook.
-
-## Note about MySQL
-
-This cookbook will decouple the mysql::server and be smart about detecting whether to use a local database or find a database server in the environment in a later version.
-
-License and Author
-==================
-
-Author:: Barry Steinglass (barry@opscode.com)
-Author:: Joshua Timberman (joshua@opscode.com)
-Author:: Seth Chisamore (schisamo@opscode.com)
+License & Authors
+-----------------
+- Author:: Barry Steinglass (barry@opscode.com)
+- Author:: Joshua Timberman (joshua@opscode.com)
+- Author:: Seth Chisamore (schisamo@opscode.com)
 
 Copyright:: 2010-2011, Opscode, Inc
 
