@@ -49,6 +49,8 @@ If a different version than the default is desired, download that version and ge
 
 Attributes
 ----------
+`node['wordpress']` attributes:
+
 <table>
   <thead>
     <tr>
@@ -79,6 +81,28 @@ Attributes
       <td><tt>/var/www</tt></td>
     </tr>
     <tr>
+      <td>server_aliases</td>
+      <td>server aliases for Apache</td>
+      <td><tt>['foo.com']</tt></td>
+      <td><tt>[(node's FQDN)]</tt></td>
+    </tr>
+  </tbody>
+</table>
+
+`node['wordpress']['db']` attributes:
+
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Description</th>
+      <th>Example</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
       <td>database</td>
       <td>name of the database to use</td>
       <td><tt>bob-wordpress</tt></td>
@@ -96,11 +120,45 @@ Attributes
       <td><tt>P@s$w0rD</tt></td>
       <td><tt>(randomly generated)</tt></td>
     </tr>
+  </tbody>
+</table>
+
+`node['wordpress']['languages']` attributes:
+
+<table>
+  <thead>
     <tr>
-      <td>server_aliases</td>
-      <td>server aliases for Apache</td>
-      <td><tt>['foo.com']</tt></td>
-      <td><tt>[(node's FQDN)]</tt></td>
+      <th>Attribute</th>
+      <th>Description</th>
+      <th>Example</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>lang</td>
+      <td>WPLANG value</td>
+      <td><tt>ja</tt></td>
+      <td><tt>''</tt></td>
+    </tr>
+    <tr>
+      <td>version</td>
+      <td>version of the <a href="http://translate.wordpress.org/projects/wp">WordPress translation projects</a></td>
+      <td><tt>3.6.x</tt></td>
+      <td><tt>''</tt></td>
+    </tr>
+    <tr>
+      <td>projects</td>
+      <td>translation project names to install</td>
+      <td><tt>['main']</tt></td>
+      <td><tt>['main', 'admin', 'admin_network', 'continents_cities']</tt></td>
+    </tr>
+    <tr>
+      <td>themes</td>
+      <td>theme translation project names to install</td>
+      <td><tt>['twentytwelve']</tt></td>
+      <td><tt>[]</tt></td>
     </tr>
   </tbody>
 </table>
