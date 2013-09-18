@@ -7,6 +7,7 @@ long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          "1.1.2"
 
 recipe "WordPress", "Installs and configures WordPress LAMP stack on a single system"
+recipe "WordPress::languages", "Install WordPress translation files"
 
 %w{ php openssl }.each do |cb|
   depends cb
@@ -74,3 +75,19 @@ attribute "WordPress/server_aliases",
   :display_name => "WordPress Server Aliases",
   :description => "WordPress Server Aliases",
   :default => "FQDN"
+
+attribute "WordPress/languages/lang",
+  :display_name => "WordPress WPLANG configulation value",
+  :description => "WordPress WPLANG configulation value",
+  :default => ""
+
+attribute "WordPress/languages/version",
+  :display_name => "Version of WordPress translation file",
+  :description => "Version of WordPress translation file",
+  :default => ""
+
+attribute "WordPress/languages/projects",
+  :display_name => "WordPress translation projects",
+  :description => "WordPress translation projects",
+  :type => "array",
+  :default => ["main", "admin", "admin/network", "cc"]
