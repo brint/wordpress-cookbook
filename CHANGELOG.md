@@ -1,6 +1,15 @@
 CHANGELOG
 =========
 
+v1.2.0
+------
+### New Feature
+- **[COOK-3321](https://tickets.opscode.com/browse/COOK-3321)** - Add languages recipe
+
+### Improvement
+- **[COOK-3311](https://tickets.opscode.com/browse/COOK-3311)** - Remove legacy Test Kitchen, Add Travis CI
+
+
 v1.1.0
 ------
 - Added Test Kitchen 1.0
