@@ -1,10 +1,13 @@
 #
 # Author:: Barry Steinglass (<barry@opscode.com>)
 # Author:: Koseki Kengo (<koseki@gmail.com>)
+# Author:: Lucas Hansen (<lucash@opscode.com>)
+# Author:: Julian C. Dunn (<jdunn@getchef.com>)
+#
 # Cookbook Name:: wordpress
 # Attributes:: wordpress
 #
-# Copyright 2009-2013, Opscode, Inc.
+# Copyright 2009-2013, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,12 +23,14 @@
 #
 
 # General settings
-default['wordpress']['version'] = "latest"
-default['wordpress']['checksum'] = ""
-default['wordpress']['repourl'] = "http://wordpress.org/"
-default['wordpress']['dir'] = "/var/www/wordpress"
-default['wordpress']['db']['database'] = "wordpressdb"
+default['wordpress']['version'] = 'latest'
+
+default['wordpress']['db']['name'] = "wordpressdb"
 default['wordpress']['db']['user'] = "wordpressuser"
+default['wordpress']['db']['pass'] = nil
+default['wordpress']['db']['prefix'] = 'wp_'
+default['wordpress']['db']['host'] = 'localhost'
+
 default['wordpress']['server_aliases'] = [node['fqdn']]
 
 # Languages
@@ -49,4 +54,14 @@ node['wordpress']['languages']['project_pathes'].each do |project,project_path|
     node['wordpress']['languages']['repourl'] + '/' +
     node['wordpress']['languages']['version'] + project_path +
     node['wordpress']['languages']['lang'] + '/default/export-translations?format=mo'
+end
+
+if platform_family?('windows')
+  default['wordpress']['parent_dir'] = "#{ENV['SystemDrive']}\\inetpub"
+  default['wordpress']['dir'] = "#{node['wordpress']['parent_dir']}\\wordpress"
+  default['wordpress']['url'] = "https://wordpress.org/wordpress-#{node['wordpress']['version']}.zip"
+else
+  default['wordpress']['parent_dir'] = '/var/www'
+  default['wordpress']['dir'] = "#{node['wordpress']['parent_dir']}/wordpress"
+  default['wordpress']['url'] = "https://wordpress.org/wordpress-#{node['wordpress']['version']}.tar.gz"
 end

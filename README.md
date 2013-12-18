@@ -1,200 +1,62 @@
-Chef Wordpress Cookbook
-=======================
+Description
+===========
+
 The Chef Wordpress cookbook installs and configures Wordpress according to the instructions at http://codex.wordpress.org/Installing_WordPress.
+
+Description
+===========
 
 This cookbook does not set up the WordPress blog. You will need to do this manually by going to http://hostname/wp-admin/install.php (this URL may be different if you change the attribute values).
 
+Requirements
+============
 
-Installation
-------------
-Install the cookbook using knife:
+Platform
+--------
 
-    $ knife cookbook site install wordpress
+* Ubuntu
+* RHEL/CentOS
+* Windows
 
-Or, if you are using Berkshelf, add the cookbook to your Berksfile:
+Cookbooks
+---------
 
-```ruby
-cookbook 'wordpress'
-```
-
-
-Usage
------
-Add the cookbook to your `run_list` in a node or role:
-
-```json
-{
-  "run_list": [
-    "recipe[wordpress::default]"
-  ]
-}
-```
-
-Or include it in a recipe:
-
-```ruby
-# other_cookbook/metadata.rb
-# ...
-depends 'wordpress'
-```
-
-```ruby
-# other_cookbook/recipes/default.rb
-# ...
-include_recipe 'wordpress::default'
-```
-
-If a different version than the default is desired, download that version and get the SHA256 checksum (sha256sum on Linux systems), and set the version and checksum attributes.
-
+* mysql
+* php
+* apache2
+* iis
+* windows
+* openssl (uses library to generate secure passwords)
 
 Attributes
-----------
-`node['wordpress']` attributes:
+==========
 
-<table>
-  <thead>
-    <tr>
-      <th>Attribute</th>
-      <th>Description</th>
-      <th>Example</th>
-      <th>Default</th>
-    </tr>
-  </thead>
+### WordPress
 
-  <tbody>
-    <tr>
-      <td>version</td>
-      <td>version of the wordpress to install</td>
-      <td><tt>1.2.3</tt></td>
-      <td><tt>'latest'</tt></td>
-    </tr>
-    <tr>
-      <td>checksum</td>
-      <td>sha256sum of the tarball</td>
-      <td><tt>abcd1234</tt></td>
-      <td><tt>''</tt></td>
-    </tr>
-    <tr>
-      <td>dir</td>
-      <td>location for wordpress files</td>
-      <td><tt>/nfs/wp</tt></td>
-      <td><tt>/var/www</tt></td>
-    </tr>
-    <tr>
-      <td>server_aliases</td>
-      <td>server aliases for Apache</td>
-      <td><tt>['foo.com']</tt></td>
-      <td><tt>[(node's FQDN)]</tt></td>
-    </tr>
-  </tbody>
-</table>
+* `node['wordpress']['version']` - Version of WordPress to download. Use 'latest' to download most recent version.
+* `node['wordpress']['parent_dir']` - Parent directory to where WordPress will be installed.
+* `node['wordpress']['dir']` - Location to place WordPress files.
+* `node['wordpress']['db']['name']` - Name of the WordPress MySQL database.
+* `node['wordpress']['db']['host']` - Host of the WordPress MySQL database.
+* `node['wordpress']['db']['user']` - Name of the WordPress MySQL user.
+* `node['wordpress']['db']['pass']` - Password of the WordPress MySQL user. By default, generated using openssl cookbook.
+* `node['wordpress']['db']['prefix']` - Prefix of all MySQL tables created by WordPress.
 
-`node['wordpress']['db']` attributes:
+Usage
+=====
 
-<table>
-  <thead>
-    <tr>
-      <th>Attribute</th>
-      <th>Description</th>
-      <th>Example</th>
-      <th>Default</th>
-    </tr>
-  </thead>
+Add the "wordpress" recipe to your node's run list or role, or include the recipe in another cookbook.
 
-  <tbody>
-    <tr>
-      <td>database</td>
-      <td>name of the database to use</td>
-      <td><tt>bob-wordpress</tt></td>
-      <td><tt>wordpressdb</tt></td>
-    </tr>
-    <tr>
-      <td>user</td>
-      <td>the user to connect to MySQL</td>
-      <td><tt>user</tt></td>
-      <td><tt>wordpressuser</tt></td>
-    </tr>
-    <tr>
-      <td>password</td>
-      <td>the password to connect to MySQL</td>
-      <td><tt>P@s$w0rD</tt></td>
-      <td><tt>(randomly generated)</tt></td>
-    </tr>
-  </tbody>
-</table>
+License and Author
+==================
 
-`node['wordpress']['languages']` attributes:
+* Author:: Barry Steinglass (barry@opscode.com)
+* Author:: Joshua Timberman (joshua@opscode.com)
+* Author:: Seth Chisamore (schisamo@opscode.com)
+* Author:: Lucas Hansen (lucash@opscode.com)
+* Author:: Julian C. Dunn (jdunn@getchef.com)
 
-<table>
-  <thead>
-    <tr>
-      <th>Attribute</th>
-      <th>Description</th>
-      <th>Example</th>
-      <th>Default</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <tr>
-      <td>lang</td>
-      <td>WPLANG value</td>
-      <td><tt>ja</tt></td>
-      <td><tt>''</tt></td>
-    </tr>
-    <tr>
-      <td>version</td>
-      <td>version of the <a href="http://translate.wordpress.org/projects/wp">WordPress translation projects</a></td>
-      <td><tt>3.6.x</tt></td>
-      <td><tt>''</tt></td>
-    </tr>
-    <tr>
-      <td>projects</td>
-      <td>translation project names to install</td>
-      <td><tt>['main']</tt></td>
-      <td><tt>['main', 'admin', 'admin_network', 'continents_cities']</tt></td>
-    </tr>
-    <tr>
-      <td>themes</td>
-      <td>theme translation project names to install</td>
-      <td><tt>['twentytwelve']</tt></td>
-      <td><tt>[]</tt></td>
-    </tr>
-  </tbody>
-</table>
-
-
-Attributes will probably never need to change (these all default to randomly generated strings):
-
-* `node['wordpress']['keys']['auth']`
-* `node['wordpress']['keys']['secure_auth']`
-* `node['wordpress']['keys']['logged_in']`
-* `node['wordpress']['keys']['nonce']`
-
-
-Development
------------
-This cookbook uses Test Kitchen (1.0). To run the tests, clone the repository, install the gems, and run test kitchen:
-
-    $ git clone git://github.com/opscode-cookbooks/wordpress.git
-    $ cd wordpress
-    $ bundle install
-    $ bundle exec strainer test
-
-1. Fork the cookbook on GitHub
-2. Make changes
-3. Write appropriate tests
-4. Submit a Pull Request back to the project
-5. Open a [JIRA ticket](https://tickets.opscode.com), linking back to the Pull Request
-
-
-License & Authors
------------------
-- Author:: Barry Steinglass (barry@opscode.com)
-- Author:: Joshua Timberman (joshua@opscode.com)
-- Author:: Seth Chisamore (schisamo@opscode.com)
-
-Copyright:: 2010-2011, Opscode, Inc
+Copyright:: 2010-2013, Chef Software, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
