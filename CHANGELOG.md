@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+v1.3.0
+------
+### Bug
+- **[COOK-3478](https://tickets.opscode.com/browse/COOK-3478)** - Windows support for Wordpress
+
+
 v1.2.0
 ------
 ### New Feature
