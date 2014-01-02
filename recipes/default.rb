@@ -66,7 +66,7 @@ else
 
   execute "extract-wordpress" do
     command "tar xf #{Chef::Config[:file_cache_path]}/#{archive} -C #{node['wordpress']['dir']}"
-    creates "#{node['wordpress']['dir']}/index.php"
+    creates "#{node['wordpress']['dir']}/wordpress/index.php"
   end
 end
 
@@ -102,14 +102,14 @@ if platform?('windows')
   iis_site 'Wordpress' do
     protocol :http
     port 80
-    path node['wordpress']['dir']
+    path node['wordpress']['docroot']
     application_pool 'WordpressPool'
     action [:add,:start]
   end
 else
   web_app "wordpress" do
     template "wordpress.conf.erb"
-    docroot node['wordpress']['dir']
+    docroot node['wordpress']['docroot']
     server_name node['fqdn']
     server_aliases node['wordpress']['server_aliases']
     enable true
