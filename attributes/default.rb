@@ -59,9 +59,12 @@ end
 if platform_family?('windows')
   default['wordpress']['parent_dir'] = "#{ENV['SystemDrive']}\\inetpub"
   default['wordpress']['dir'] = "#{node['wordpress']['parent_dir']}\\wordpress"
+  default['wordpress']['docroot'] = "#{node['wordpress']['dir']}"
   default['wordpress']['url'] = "https://wordpress.org/wordpress-#{node['wordpress']['version']}.zip"
 else
   default['wordpress']['parent_dir'] = '/var/www'
   default['wordpress']['dir'] = "#{node['wordpress']['parent_dir']}/wordpress"
+  # The Wordpress tarball, unpacked into node['wordpress']['dir'], contains a wordpress subdirectory with the web content.
+  default['wordpress']['docroot'] = "#{node['wordpress']['dir']}/wordpress/"
   default['wordpress']['url'] = "https://wordpress.org/wordpress-#{node['wordpress']['version']}.tar.gz"
 end
