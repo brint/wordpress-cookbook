@@ -31,6 +31,8 @@ default['wordpress']['db']['pass'] = nil
 default['wordpress']['db']['prefix'] = 'wp_'
 default['wordpress']['db']['host'] = 'localhost'
 
+default['wordpress']['allow_multisite'] = false
+
 default['wordpress']['server_aliases'] = [node['fqdn']]
 
 # Languages

@@ -80,6 +80,11 @@ define('WPLANG', '<%= @lang %>');
  */
 define('WP_DEBUG', false);
 
+<% if @allow_multisite %>
+/* Multisite */
+define( 'WP_ALLOW_MULTISITE', true );
+<% end %>
+
 /* That's all, stop editing! Happy blogging. */
 
 /** Absolute path to the WordPress directory. */
