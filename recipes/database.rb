@@ -39,7 +39,7 @@ if is_local_host? db['host']
   create_db = %<CREATE DATABASE #{db['name']};>
   db_exists = %<SHOW DATABASES LIKE '#{db['name']}';>
   grant_privileges = %<GRANT ALL PRIVILEGES ON #{db['name']}.* TO #{user};>
-  privileges_exist = %<SHOW GRANTS FOR for #{user}@'%';>
+  privileges_exist = %<SHOW GRANTS FOR '#{db['user']}'@'#{db['host']}';>
   flush_privileges = %<FLUSH PRIVILEGES;>
 
   execute "Create WordPress MySQL User" do
