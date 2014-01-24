@@ -65,7 +65,7 @@ else
   end
 
   execute "extract-wordpress" do
-    command "tar xf #{Chef::Config[:file_cache_path]}/#{archive} -C #{node['wordpress']['dir']}"
+    command "tar xf #{Chef::Config[:file_cache_path]}/#{archive} -C #{node['wordpress']['parent_dir']}"
     creates "#{node['wordpress']['dir']}/index.php"
   end
 end
