@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+v1.3.2 (2014-01-23)
+-------------------
+* [COOK-4248] - use "no_managed_code" when setting up WordPress Pool on Windows
+* [COOK-4170] - Wordpress tarball contains a wordpress subdirectory, causing "extract-wordpress" to execute every run and the WP URL to be http://hostname/wordpress/
+
+
 v1.3.0
 ------
 ### Bug
