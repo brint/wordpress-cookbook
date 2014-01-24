@@ -95,7 +95,7 @@ if platform?('windows')
   include_recipe 'iis::remove_default_site'
 
   iis_pool 'WordpressPool' do
-    runtime_version "2.0" # TODO: Change to Unmanaged after COOK-3634 is merged
+    no_managed_code true
     action :add
   end
 
