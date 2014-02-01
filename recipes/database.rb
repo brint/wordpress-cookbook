@@ -24,7 +24,7 @@ include_recipe "mysql::client" unless platform_family?('windows') # No MySQL cli
 ::Chef::Recipe.send(:include, Opscode::OpenSSL::Password)
 ::Chef::Recipe.send(:include, Wordpress::Helpers)
 
-node.set_unless['wordpress']['db']['pass'] = secure_password
+node.set_unless['wordpress']['db']['pass'] = node['wordpress']['db']['pass'] || secure_password
 node.save unless Chef::Config[:solo]
 
 db = node['wordpress']['db']
@@ -35,6 +35,7 @@ if is_local_host? db['host']
   mysql_bin = (platform_family? 'windows') ? 'mysql.exe' : 'mysql'
   user = "'#{db['user']}'@'#{db['host']}'"
   create_user = %<CREATE USER #{user} IDENTIFIED BY '#{db['pass']}';>
+  update_password = %<SET PASSWORD FOR #{user} = PASSWORD('#{db['pass']}');>
   user_exists = %<SELECT 1 FROM mysql.user WHERE user = '#{db['user']}';>
   create_db = %<CREATE DATABASE #{db['name']};>
   db_exists = %<SHOW DATABASES LIKE '#{db['name']}';>
@@ -46,6 +47,11 @@ if is_local_host? db['host']
     action :run
     command "#{mysql_bin} #{::Wordpress::Helpers.make_db_query("root", node['mysql']['server_root_password'], create_user)}"
     only_if { `#{mysql_bin} #{::Wordpress::Helpers.make_db_query("root", node['mysql']['server_root_password'], user_exists)}`.empty? }
+  end
+
+  execute "Update WordPress MySQL User's password" do
+    action :run
+    command "#{mysql_bin} #{::Wordpress::Helpers.make_db_query("root", node['mysql']['server_root_password'], update_password)}"
   end
 
   execute "Grant WordPress MySQL Privileges" do
