@@ -34,7 +34,7 @@ Attributes
 ### WordPress
 
 * `node['wordpress']['version']` - Version of WordPress to download. Use 'latest' to download most recent version.
-* `node['wordpress']['parent_dir']` - Parent directory to where WordPress will be installed.
+* `node['wordpress']['parent_dir']` - Parent directory to where WordPress will be extracted. (Windows Only)
 * `node['wordpress']['dir']` - Location to place WordPress files.
 * `node['wordpress']['db']['name']` - Name of the WordPress MySQL database.
 * `node['wordpress']['db']['host']` - Host of the WordPress MySQL database.
