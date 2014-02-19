@@ -1,7 +1,7 @@
 Contribution Guidelines
 =======================
 
-If you would like to contribute to the Chef Wordpress cookbook,
+If you would like to contribute to the Chef WordPress cookbook,
 you must open a ticket in [JIRA](http://tickets.opscode.com).
 
 1. Create the ticket in the [COOK] (use "wordpress" for the component)
