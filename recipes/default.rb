@@ -112,6 +112,7 @@ else
     docroot node['wordpress']['dir']
     server_name node['fqdn']
     server_aliases node['wordpress']['server_aliases']
+    server_port node['apache']['listen_ports']
     enable true
   end
 end
