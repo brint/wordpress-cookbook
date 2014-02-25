@@ -41,6 +41,7 @@ node.save unless Chef::Config[:solo]
 
 directory node['wordpress']['dir'] do
   action :create
+  recursive true
   if platform_family?('windows')
     rights :read, 'Everyone'
   else
