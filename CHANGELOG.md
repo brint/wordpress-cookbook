@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+v2.0.0 (2014-02-27)
+-------------------
+[COOK-4180] leverage the database cookbook
+
+
 v1.3.2 (2014-01-23)
 -------------------
 * [COOK-4248] - use "no_managed_code" when setting up WordPress Pool on Windows
