@@ -1,6 +1,15 @@
 CHANGELOG
 =========
 
+v2.1.0 (2014-02-27)
+-------------------
+[COOK-4354] s/Wordpress/WordPress/g in docs
+[COOK-4356] Gets WordPress to be extracted to the proper directory
+[COOK-4191] WordPress table_prefix not configured when node['wordpress']['db']['prefix'] is set
+[COOK-4192] Add attribute to control WordPress multisite features
+[COOK-4366] apache2 port parameter
+
+
 v2.0.0 (2014-02-27)
 -------------------
 [COOK-4180] leverage the database cookbook
