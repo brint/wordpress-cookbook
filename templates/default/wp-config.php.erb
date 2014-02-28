@@ -59,7 +59,7 @@ define('NONCE_SALT',       '<%= @nonce_salt %>');
  * You can have multiple installations in one database if you give each a unique
  * prefix. Only numbers, letters, and underscores please!
  */
-$table_prefix  = 'wp_';
+$table_prefix  = '<%= @db_prefix %>';
 
 /**
  * WordPress Localized Language, defaults to English.
