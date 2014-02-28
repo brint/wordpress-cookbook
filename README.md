@@ -1,7 +1,7 @@
 Description
 ===========
 
-The Chef Wordpress cookbook installs and configures Wordpress according to the instructions at http://codex.wordpress.org/Installing_WordPress.
+The Chef WordPress cookbook installs and configures WordPress according to the instructions at http://codex.wordpress.org/Installing_WordPress.
 
 Description
 ===========
