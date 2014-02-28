@@ -87,7 +87,8 @@ template "#{node['wordpress']['dir']}/wp-config.php" do
     :secure_auth_salt => node['wordpress']['salt']['secure_auth'],
     :logged_in_salt   => node['wordpress']['salt']['logged_in'],
     :nonce_salt       => node['wordpress']['salt']['nonce'],
-    :lang             => node['wordpress']['languages']['lang']
+    :lang             => node['wordpress']['languages']['lang'],
+    :allow_multisite  => node['wordpress']['allow_multisite']
   )
   action :create
 end

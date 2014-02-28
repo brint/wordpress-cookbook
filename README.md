@@ -41,6 +41,7 @@ Attributes
 * `node['wordpress']['db']['user']` - Name of the WordPress MySQL user.
 * `node['wordpress']['db']['pass']` - Password of the WordPress MySQL user. By default, generated using openssl cookbook.
 * `node['wordpress']['db']['prefix']` - Prefix of all MySQL tables created by WordPress.
+* `node['wordpress']['allow_multisite']` - Enable [multisite](http://codex.wordpress.org/Create_A_Network) features (default: false).
 
 Usage
 =====
