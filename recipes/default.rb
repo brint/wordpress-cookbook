@@ -73,6 +73,7 @@ end
 
 template "#{node['wordpress']['dir']}/wp-config.php" do
   source 'wp-config.php.erb'
+  mode 0644
   variables(
     :db_name          => node['wordpress']['db']['name'],
     :db_user          => node['wordpress']['db']['user'],
