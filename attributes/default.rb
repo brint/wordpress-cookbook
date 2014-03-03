@@ -58,7 +58,7 @@ node['wordpress']['languages']['project_pathes'].each do |project,project_path|
     node['wordpress']['languages']['lang'] + '/default/export-translations?format=mo'
 end
 
-if platform_family?('windows')
+if node['platform'] == 'windows'
   default['wordpress']['parent_dir'] = "#{ENV['SystemDrive']}\\inetpub"
   default['wordpress']['dir'] = "#{node['wordpress']['parent_dir']}\\wordpress"
   default['wordpress']['url'] = "https://wordpress.org/wordpress-#{node['wordpress']['version']}.zip"
