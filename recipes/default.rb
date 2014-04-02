@@ -114,7 +114,7 @@ else
   web_app "wordpress" do
     template "wordpress.conf.erb"
     docroot node['wordpress']['dir']
-    server_name node['fqdn']
+    server_name node['wordpress']['server_name']
     server_aliases node['wordpress']['server_aliases']
     server_port node['apache']['listen_ports']
     enable true
