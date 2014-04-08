@@ -60,13 +60,8 @@ if platform_family?('windows')
     not_if {::File.exists?("#{node['wordpress']['dir']}\\index.php")}
   end
 else
-  remote_file "#{Chef::Config[:file_cache_path]}/#{archive}" do
-    source node['wordpress']['url']
-    action :create
-  end
-
-  execute "extract-wordpress" do
-    command "tar xf #{Chef::Config[:file_cache_path]}/#{archive} --strip-components 1 -C #{node['wordpress']['dir']}"
+  tar_extract "#{node['wordpress']['url']}" do
+    target_dir "#{node['wordpress']['parent_dir']}"
     creates "#{node['wordpress']['dir']}/index.php"
     user node['wordpress']['install']['user']
     group node['wordpress']['install']['group']

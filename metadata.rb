@@ -19,6 +19,7 @@ depends "mysql", ">= 5.0.0"
 depends "mysql-chef_gem", ">= 0.0.2"
 depends "build-essential"
 depends "iis", ">= 1.6.2"
+depends "tar", ">= 0.3.1"
 
 %w{ debian ubuntu windows centos redhat scientific oracle }.each do |os|
   supports os
