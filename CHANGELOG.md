@@ -1,5 +1,8 @@
 CHANGELOG
 =========
+v2.1.2 (2014-04-03)
+-------------------
+* Fixes issue where `mysql::ruby` recipe was removed in v5 of community cookbook
 
 v2.1.0 (2014-02-27)
 -------------------
