@@ -35,6 +35,9 @@ default['wordpress']['allow_multisite'] = false
 
 default['wordpress']['server_aliases'] = [node['fqdn']]
 
+default['wordpress']['install']['user'] = node['apache']['user']
+default['wordpress']['install']['group'] = node['apache']['group']
+
 # Languages
 default['wordpress']['languages']['lang'] = ''
 default['wordpress']['languages']['version'] = ''

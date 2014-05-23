@@ -45,8 +45,8 @@ directory node['wordpress']['dir'] do
   if platform_family?('windows')
     rights :read, 'Everyone'
   else
-    owner 'root'
-    group 'root'
+    owner node['wordpress']['install']['user']
+    group node['wordpress']['install']['group']
     mode  '00755'
   end
 end
@@ -60,14 +60,11 @@ if platform_family?('windows')
     not_if {::File.exists?("#{node['wordpress']['dir']}\\index.php")}
   end
 else
-  remote_file "#{Chef::Config[:file_cache_path]}/#{archive}" do
-    source node['wordpress']['url']
-    action :create
-  end
-
-  execute "extract-wordpress" do
-    command "tar xf #{Chef::Config[:file_cache_path]}/#{archive} --strip-components 1 -C #{node['wordpress']['dir']}"
+  tar_extract "#{node['wordpress']['url']}" do
+    target_dir "#{node['wordpress']['parent_dir']}"
     creates "#{node['wordpress']['dir']}/index.php"
+    user node['wordpress']['install']['user']
+    group node['wordpress']['install']['group']
   end
 end
 
@@ -91,6 +88,8 @@ template "#{node['wordpress']['dir']}/wp-config.php" do
     :lang             => node['wordpress']['languages']['lang'],
     :allow_multisite  => node['wordpress']['allow_multisite']
   )
+  owner node['wordpress']['install']['user']
+  group node['wordpress']['install']['group']
   action :create
 end
 
