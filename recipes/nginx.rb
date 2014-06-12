@@ -84,7 +84,7 @@ template "#{node['wordpress']['dir']}/wp-config.php" do
   action :create
 end
 
-template "#{node['nginx']['dir']}/conf.d/wordpress.conf" do
+template "#{node['nginx']['dir']}/sites-enabled/wordpress.conf" do
   source "nginx.conf.erb"
   variables(
     :docroot          => node['wordpress']['dir'],
