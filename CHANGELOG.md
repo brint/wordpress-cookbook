@@ -2,8 +2,8 @@ CHANGELOG
 
 v2.1.5 (2014-06-28)
 -------------------
+* Recipe added to support installation with nginx
 
-=========
 v2.1.2 (2014-04-03)
 -------------------
 * Fixes issue where `mysql::ruby` recipe was removed in v5 of community cookbook
