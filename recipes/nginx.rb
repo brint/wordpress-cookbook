@@ -17,7 +17,19 @@
 # limitations under the License.
 #
 
-include_recipe "php::module_fpm"
+node.set_unless['php-fpm']['pools'] = []
+
+include_recipe "php-fpm"
+
+php_fpm_pool "wordpress" do
+  listen "127.0.0.1:9000"
+  user node['wordpress']['install']['user']
+  group node['wordpress']['install']['group']
+  listen_owner node['wordpress']['install']['user']
+  listen_group node['wordpress']['install']['group']
+  start_servers 5
+end
+
 include_recipe "php::module_mysql"
 include_recipe "nginx"
 include_recipe "wordpress::database"
