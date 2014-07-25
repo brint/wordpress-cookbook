@@ -1,6 +1,7 @@
 rvm:
   - 1.9.3
   - 2.0.0
+  - 2.1.2
 before_script:
   - bundle exec berks install
 bundler_args: --without integration
