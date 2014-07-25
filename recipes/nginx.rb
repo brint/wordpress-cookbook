@@ -90,7 +90,7 @@ template "#{node['nginx']['dir']}/sites-enabled/wordpress.conf" do
     :docroot          => node['wordpress']['dir'],
     :server_name      => node['wordpress']['server_name'],
     :server_aliases   => node['wordpress']['server_aliases'],
-    :server_port      => node['apache']['listen_ports']
+    :server_port      => node['wordpress']['server_port']
   )
   action :create
 end

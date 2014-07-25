@@ -1,5 +1,5 @@
 server {
-        listen <%= node['nginx']['port'] %>;
+        listen <%= @server_port %>;
         server_name <%= @server_name %> <%= @server_aliases.join(" ") %>;
 
         access_log   /var/log/nginx/<%= @server_name %>.access.log;
