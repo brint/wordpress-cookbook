@@ -17,8 +17,8 @@ Requirements
 Platform
 --------
 
-* Ubuntu
-* RHEL/CentOS
+* Ubuntu 10.04, 12.04
+* RHEL/CentOS 5, 6
 * Windows
 
 Cookbooks
