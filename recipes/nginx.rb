@@ -25,12 +25,17 @@ php_fpm_pool "wordpress" do
   listen "127.0.0.1:9000"
   user node['wordpress']['install']['user']
   group node['wordpress']['install']['group']
+  if node['platform'] == 'ubuntu' and node['platform_version'] == '10.04'
+    process_manager 'dynamic'
+  end
   listen_owner node['wordpress']['install']['user']
   listen_group node['wordpress']['install']['group']
   start_servers 5
 end
 
 include_recipe "php::module_mysql"
+
+node.set['nginx']['default_site_enabled'] = false
 include_recipe "nginx"
 include_recipe "wordpress::database"
 
