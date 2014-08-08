@@ -20,7 +20,8 @@
   CustomLog <%= node['apache']['log_dir'] %>/<%= @params[:name] %>-access.log combined
 
   RewriteEngine On
+<% unless node['apache']['version'] == '2.4' %>
   RewriteLog <%= node['apache']['log_dir'] %>/<%= @application_name %>-rewrite.log
   RewriteLogLevel 0
-
+<% end %>
 </VirtualHost>

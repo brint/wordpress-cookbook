@@ -17,7 +17,7 @@ Requirements
 Platform
 --------
 
-* Ubuntu 10.04, 12.04
+* Ubuntu 10.04, 12.04, 14.04
 * RHEL/CentOS 5, 6
 * Windows
 
