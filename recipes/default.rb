@@ -17,6 +17,4 @@
 # limitations under the License.
 #
 
-# Include apache recipe to mimic previous default.rb behavior so as not
-# to break chef-client runs on existing nodes.
 include_recipe "wordpress::apache"
