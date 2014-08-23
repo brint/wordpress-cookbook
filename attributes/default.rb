@@ -35,6 +35,7 @@ default['wordpress']['db']['collate'] = ''
 
 default['wordpress']['allow_multisite'] = false
 
+default['wordpress']['config_perms'] = 0644
 default['wordpress']['server_aliases'] = [node['fqdn']]
 default['wordpress']['server_port'] = '80'
 
