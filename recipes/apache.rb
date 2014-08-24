@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: wordpress
-# Recipe:: default
+# Recipe:: apache
 #
 # Copyright 2009-2010, Opscode, Inc.
 #

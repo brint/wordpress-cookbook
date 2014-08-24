@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: wordpress
-# Recipe:: nginx
+# Recipe:: app
 #
 # Copyright 2009-2010, Opscode, Inc.
 #
