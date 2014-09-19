@@ -30,6 +30,7 @@ php_fpm_pool "wordpress" do
   end
   listen_owner node['wordpress']['install']['user']
   listen_group node['wordpress']['install']['group']
+  php_options node['wordpress']['php_options']
   start_servers 5
 end
 

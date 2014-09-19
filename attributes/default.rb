@@ -75,3 +75,5 @@ else
   default['wordpress']['dir'] = "#{node['wordpress']['parent_dir']}/wordpress"
   default['wordpress']['url'] = "https://wordpress.org/wordpress-#{node['wordpress']['version']}.tar.gz"
 end
+
+default['wordpress']['php_options'] = { 'upload_max_filesize' => '50M', 'post_max_size' => '55M' }
