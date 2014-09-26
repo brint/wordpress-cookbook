@@ -57,6 +57,7 @@ else
     user node['wordpress']['install']['user']
     group node['wordpress']['install']['group']
     tar_flags [ '--strip-components 1' ]
+    not_if { ::File.exists?("#{node['wordpress']['dir']}/index.php") }
   end
 end
 
