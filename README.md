@@ -48,6 +48,7 @@ Attributes
 * `node['wordpress']['db']['charset']` - [Character set](http://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html) of the WordPress MySQL database tables. Defaults to 'utf8'.
 * `node['wordpress']['db']['collate']` - [Collation](http://dev.mysql.com/doc/refman/5.7/en/charset-collation-effect.html) of the WordPress MySQL database tables.
 * `node['wordpress']['allow_multisite']` - Enable [multisite](http://codex.wordpress.org/Create_A_Network) features (default: false).
+* `node['wordpress']['wp_config_options']` - A hash of options to define in wp_config.php. Emitted as key value pairs: `define( '<%= @name %>', <%= @value %> );`. Note, you will need to quote text but omit quotes for true/false and numbers. (default: {}).
 * `node['wordpress']['config_perms']` - Permissions to set for a site's wp-config.php.
 
 Usage

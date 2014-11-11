@@ -85,6 +85,10 @@ define('WP_DEBUG', false);
 define( 'WP_ALLOW_MULTISITE', true );
 <% end %>
 
+<% @wp_config_options.each do |key,value| %>
+define( '<%= key %>', <%= value %> );
+<% end %>
+
 /* That's all, stop editing! Happy blogging. */
 
 /** Absolute path to the WordPress directory. */
