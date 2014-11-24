@@ -3,9 +3,6 @@ driver_config:
   require_chef_omnibus: true
 
 platforms:
-  - name: ubuntu-10.04
-    run_list:
-      - recipe[apt]
   - name: ubuntu-12.04
     run_list:
       - recipe[apt]
