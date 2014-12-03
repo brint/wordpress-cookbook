@@ -37,7 +37,21 @@ default['wordpress']['allow_multisite'] = false
 
 default['wordpress']['config_perms'] = 0644
 default['wordpress']['server_aliases'] = [node['fqdn']]
-default['wordpress']['server_port'] = '80'
+default['wordpress']['http_port'] = '80'
+default['wordpress']['https_port'] = '443'
+default['wordpress']['allow_override'] = 'FileInfo Options'
+
+# SSL Options
+default['wordpress']['use_ssl'] = false
+default['wordpress']['ssl']['protocol'] = 'all -SSLv2 -SSLv3'
+default['wordpress']['ssl']['common_name'] = node['fqdn']
+default['wordpress']['ssl']["country"] = nil
+default['wordpress']['ssl']["state"] = nil
+default['wordpress']['ssl']["city"] = nil
+default['wordpress']['ssl']["organization"] = nil
+default['wordpress']['ssl']["department"] = nil
+default['wordpress']['ssl']["email"] = nil
+
 
 default['wordpress']['install']['user'] = node['apache']['user']
 default['wordpress']['install']['group'] = node['apache']['group']

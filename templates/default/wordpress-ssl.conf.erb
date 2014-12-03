@@ -1,4 +1,4 @@
-<VirtualHost *:<%= node['wordpress']['http_port'] %>>
+<VirtualHost *:<%= node['wordpress']['https_port'] %>>
   ServerName <%= @params[:server_name] %>
   ServerAlias <% @params[:server_aliases].each do |a| %><%= a %> <% end %>
   DocumentRoot <%= @params[:docroot] %>
@@ -15,22 +15,22 @@
   </Directory>
 
   <Directory />
-  Options FollowSymLinks
-  AllowOverride None
-</Directory>
+    Options FollowSymLinks
+    AllowOverride None
+  </Directory>
 
-<Location /server-status>
-  SetHandler server-status
+  <Location /server-status>
+    SetHandler server-status
 
   <% if node['apache']['version'] == '2.4' -%>
-  Require local
+    Require local
   <% else -%>
-  Order Deny,Allow
-  Deny from all
-  Allow from 127.0.0.1
+    Order Deny,Allow
+    Deny from all
+    Allow from 127.0.0.1
   <% end -%>
 
-</Location>
+  </Location>
 
   LogLevel info
   ErrorLog <%= node['apache']['log_dir'] %>/<%= @params[:name] %>-error.log
@@ -41,4 +41,9 @@
   RewriteLog <%= node['apache']['log_dir'] %>/<%= @application_name %>-rewrite.log
   RewriteLogLevel 0
 <% end %>
+
+  SSLEngine on
+  SSLCertificateFile <%= @params[:ssl_cert] %>
+  SSLCertificateKeyFile <%= @params[:ssl_key] %>
+
 </VirtualHost>
