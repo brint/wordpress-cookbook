@@ -87,7 +87,8 @@ else
   default['wordpress']['server_name'] = node['fqdn']
   default['wordpress']['parent_dir'] = '/var/www'
   default['wordpress']['dir'] = "#{node['wordpress']['parent_dir']}/wordpress"
-  default['wordpress']['url'] = "https://wordpress.org/wordpress-#{node['wordpress']['version']}.tar.gz"
+  default['wordpress']['repo']['url'] = "https://github.com/WordPress/WordPress.git"
+  default['wordpress']['repo']['branch'] = "4.0-branch"
 end
 
 default['wordpress']['php_options'] = { 'php_admin_value[upload_max_filesize]' => '50M', 'php_admin_value[post_max_size]' => '55M' }

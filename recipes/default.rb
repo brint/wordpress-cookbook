@@ -17,4 +17,5 @@
 # limitations under the License.
 #
 
+include_recipe "wordpress::package"
 include_recipe "wordpress::apache"
