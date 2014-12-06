@@ -13,7 +13,8 @@ recipe "WordPress::languages", "Install WordPress translation files"
   depends cb
 end
 
-depends "apache2", ">= 2.0.0"
+depends "apache2", ">= 3.0.0"
+depends "ssl_certificate", "~> 0.4.0"
 depends "database", ">= 1.6.0"
 depends "mysql", ">= 5.0.0"
 depends "mysql-chef_gem", ">= 0.0.2"

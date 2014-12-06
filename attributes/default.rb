@@ -37,7 +37,21 @@ default['wordpress']['allow_multisite'] = false
 
 default['wordpress']['config_perms'] = 0644
 default['wordpress']['server_aliases'] = [node['fqdn']]
-default['wordpress']['server_port'] = '80'
+default['wordpress']['http_port'] = '80'
+default['wordpress']['https_port'] = '443'
+default['wordpress']['allow_override'] = 'FileInfo Options'
+
+# SSL Options
+default['wordpress']['use_ssl'] = false
+default['wordpress']['ssl']['protocol'] = 'all -SSLv2 -SSLv3'
+default['wordpress']['ssl']['common_name'] = node['fqdn']
+default['wordpress']['ssl']["country"] = nil
+default['wordpress']['ssl']["state"] = nil
+default['wordpress']['ssl']["city"] = nil
+default['wordpress']['ssl']["organization"] = nil
+default['wordpress']['ssl']["department"] = nil
+default['wordpress']['ssl']["email"] = nil
+
 
 default['wordpress']['install']['user'] = node['apache']['user']
 default['wordpress']['install']['group'] = node['apache']['group']
@@ -73,7 +87,8 @@ else
   default['wordpress']['server_name'] = node['fqdn']
   default['wordpress']['parent_dir'] = '/var/www'
   default['wordpress']['dir'] = "#{node['wordpress']['parent_dir']}/wordpress"
-  default['wordpress']['url'] = "https://wordpress.org/wordpress-#{node['wordpress']['version']}.tar.gz"
+  default['wordpress']['repo']['url'] = "https://github.com/WordPress/WordPress.git"
+  default['wordpress']['repo']['branch'] = "4.0-branch"
 end
 
 default['wordpress']['php_options'] = { 'php_admin_value[upload_max_filesize]' => '50M', 'php_admin_value[post_max_size]' => '55M' }
