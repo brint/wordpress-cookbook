@@ -20,8 +20,15 @@
 # limitations under the License.
 #
 
-include_recipe "mysql::client" unless platform_family?('windows') # No MySQL client on Windows
-include_recipe "mysql-chef_gem" # Replaces mysql::ruby
+unless platform_family?('windows')
+  mysql_client 'default' do
+    action :create
+  end
+end
+
+mysql2_chef_gem 'default' do
+  action :install
+end
 
 ::Chef::Recipe.send(:include, Opscode::OpenSSL::Password)
 ::Chef::Recipe.send(:include, Wordpress::Helpers)
@@ -32,12 +39,26 @@ node.save unless Chef::Config[:solo]
 db = node['wordpress']['db']
 
 if is_local_host? db['host']
-  include_recipe "mysql::server"
+
+  mysql_service node['wordpress']['db']['instance_name'] do
+    port '3306'
+    version '5.5'
+    initial_root_password node['wordpress']['db']['root_password']
+    action [:create, :start]
+  end
+
+  socket = "/var/run/mysql-#{node['wordpress']['db']['instance_name']}/mysqld.sock"
+
+  link '/var/run/mysqld/mysqld.sock' do
+    to socket
+    not_if 'test -f /var/run/mysqld/mysqld.sock'
+  end
 
   mysql_connection_info = {
     :host     => 'localhost',
     :username => 'root',
-    :password => node['mysql']['server_root_password']
+    :socket   => socket,
+    :password => node['wordpress']['db']['root_password']
   }
 
   mysql_database db['name'] do

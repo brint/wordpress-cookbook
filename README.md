@@ -25,7 +25,7 @@ Cookbooks
 ---------
 
 * mysql
-* mysql-chef_gem
+* mysql_chef_gem
 * php
 * apache2
 * iis
