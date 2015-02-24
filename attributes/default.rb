@@ -43,7 +43,7 @@ when 'ubuntu'
   else
     default['wordpress']['db']['mysql_version'] = '5.5'
   end
-when 'centos', 'redhat'
+when 'centos', 'redhat', 'amazon', 'scientific'
   if node['platform_version'].to_i < 6
     default['wordpress']['db']['mysql_version'] = '5.0'
   elsif node['platform_version'].to_i < 7
