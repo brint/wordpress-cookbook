@@ -29,3 +29,9 @@ suites:
         server_root_password: "Please-Dont-Use-In-Production"
         server_debian_password: "Please-Dont-Use-In-Production"
         server_repl_password: "Please-Dont-Use-In-Production"
+  - name: wordpress_git
+    run_list:
+      - recipe[wordpress_install::git]
+  - name: wordpress_tarball
+    run_list:
+      - recipe[wordpress_install::tarball]

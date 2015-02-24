@@ -21,6 +21,13 @@
 
 module Wordpress
   module Helpers
+    include Chef::DSL::IncludeRecipe
+
+    def install_git_dependencies
+      # If the install method is set to 'git', include the community git recipe
+      include_recipe('git')
+    end
+
     def is_local_host?(host)
       if host == 'localhost' || host == '127.0.0.1' || host == '::1'
         true

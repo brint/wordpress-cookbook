@@ -23,6 +23,7 @@ depends "tar", ">= 0.3.1"
 depends "nginx", "~> 2.7.4"
 depends "php-fpm", "~> 0.6.10"
 depends 'selinux', '~> 0.7'
+depends 'git'
 
 %w{ debian ubuntu windows centos redhat scientific oracle }.each do |os|
   supports os
