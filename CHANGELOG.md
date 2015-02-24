@@ -1,5 +1,14 @@
 CHANGELOG
 
+v3.0.0 (2015-02-24)
+-------------------
+* Cookbook updated to support the MySQL 6.0 community cookbook
+* Added selinux as a dependency to resolve MySQL installation issues on CentOS
+* Adjustments made to Nginx/PHP-FPM configuration to work out of the box with CentOS
+* Added attribute to allow for additional WordPress configuration options
+* Updated bats tests to work when testing WordPress version 4+ and <4
+* Removed testing for Ubuntu 10.04 due to fast approaching EOL and bugs in several cookbooks WordPress depends on.
+
 v2.1.5 (2014-06-28)
 -------------------
 * Recipe added to support installation with nginx
