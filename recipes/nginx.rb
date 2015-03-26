@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-node.set_unless['php-fpm']['pools'] = []
+node.set_unless['php-fpm']['pools'] = {}
 
 include_recipe "php-fpm"
 
