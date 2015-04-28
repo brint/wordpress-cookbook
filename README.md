@@ -68,6 +68,7 @@ Attributes
 * `node['wordpress']['server_name']` - Hostname used for setting up the Virtual Host configuration for your WordPress site
 
 * `node['wordpress']['php_options']` - Additional PHP settings for the installation.
+* `node['wordpress']['plugins']` - Hash of plugin names and URLs to be installed.
 
 Usage
 =====
