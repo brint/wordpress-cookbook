@@ -101,3 +101,6 @@ else
 end
 
 default['wordpress']['php_options'] = { 'php_admin_value[upload_max_filesize]' => '50M', 'php_admin_value[post_max_size]' => '55M' }
+
+default['wordpress']['plugins'] = {}
+
