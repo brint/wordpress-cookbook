@@ -20,22 +20,22 @@ def add_plugin
   # TODO: update/freshen the files in the plugins directory
   bash "overwrite-plugin" do
     cwd "#{node['wordpress']['dir']}/wp-content/plugins"
-    code "unzip xf #{Chef::Config[:file_cache_path]}/#{title}.zip"
+    code "unzip xf #{Chef::Config[:file_cache_path]}/#{new_resource.plugin_name}.zip"
   end
 end
 
-def download_and_extract(url, title)
-  Chef::Log.info "Downloading #{title} from #{url}..."
+def download_and_extract(url, name)
+  Chef::Log.info "Downloading #{name} from #{url}..."
 
   # Retrieve the file
-  remote_file "#{Chef::Config[:file_cache_path]}/#{title}.zip" do
+  remote_file "#{Chef::Config[:file_cache_path]}/#{name}.zip" do
     source url
   end
 
   # Extract the archive - assuming zip file for now (most WP plugins ship this way)
   bash "extract-plugin" do
-    cwd "#{Chef::Config[:file_cache_path]}/#{title}"
-    code "unzip xf ../#{title}.zip"
+    cwd "#{Chef::Config[:file_cache_path]}/#{name}"
+    code "unzip xf ../#{name}.zip"
   end
 end
 
@@ -52,13 +52,13 @@ def load_current_resource
   @current_resource
 end
 
-def plugin_exists?(url, title)
+def plugin_exists?(url, name)
 
-  Chef::Log.info "Checking existance of #{title} from #{url}..."
+  Chef::Log.info "Checking existance of #{name} from #{url}..."
 
-  download_and_extract(url, title)
+  download_and_extract(url, name)
 
-  plugin_dir = `unzip -l #{Chef::Config[:file_cache_path]}/#{title}.zip |grep " [^/]*/$" |awk '{print $4}'`
+  plugin_dir = `unzip -l #{Chef::Config[:file_cache_path]}/#{name}.zip |grep " [^/]*/$" |awk '{print $4}'`
 
   if Dir.exist?(plugin_dir)
     return true
