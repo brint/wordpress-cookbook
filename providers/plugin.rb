@@ -20,7 +20,7 @@ def add_plugin
   # TODO: update/freshen the files in the plugins directory
   bash "overwrite-plugin" do
     cwd "#{node['wordpress']['dir']}/wp-content/plugins"
-    code "unzip xf #{Chef::Config[:file_cache_path]}/#{new_resource.plugin_name}.zip"
+    code "unzip -xf #{Chef::Config[:file_cache_path]}/#{new_resource.plugin_name}.zip"
   end
 end
 
