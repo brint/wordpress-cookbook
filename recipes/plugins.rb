@@ -17,6 +17,8 @@
 # limitations under the License.
 #
 
+package "unzip"
+
 node['wordpress']['plugins'].each do |plugin, url|
 
   wordpress_plugin plugin do
