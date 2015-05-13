@@ -20,7 +20,7 @@ def add_plugin
   # TODO: update/freshen the files in the plugins directory
   bash "overwrite-plugin" do
     cwd "#{node['wordpress']['dir']}/wp-content/plugins"
-    code "unzip -xf #{Chef::Config[:file_cache_path]}/#{new_resource.plugin_name}.zip"
+    code "unzip -u #{Chef::Config[:file_cache_path]}/#{new_resource.plugin_name}.zip"
   end
 end
 
@@ -35,7 +35,7 @@ def download_and_extract(url, name)
   # Extract the archive - assuming zip file for now (most WP plugins ship this way)
   bash "extract-plugin" do
     cwd "#{Chef::Config[:file_cache_path]}"
-    code "unzip -xf #{name}.zip"
+    code "unzip -u #{name}.zip"
   end
 end
 
