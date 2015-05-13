@@ -17,10 +17,20 @@ end
 def add_plugin
   download_and_extract(@new_resource.url, @new_resource.plugin_name)
 
-  # TODO: update/freshen the files in the plugins directory
+  plugin_dir = `unzip -l #{Chef::Config[:file_cache_path]}/#{new_resource.plugin_name}.zip |grep " [^/]*/$" |awk '{print $4}'`
+
   bash "overwrite-plugin" do
     cwd "#{node['wordpress']['dir']}/wp-content/plugins"
     code "unzip -u #{Chef::Config[:file_cache_path]}/#{new_resource.plugin_name}.zip"
+  end
+
+  bash "change-plugin-ownership" do
+    cwd "#{node['wordpress']['dir']}/wp-content/plugins"
+    code "chown -R #{node['wordpress']['install']['user']}:#{node['wordpress']['install']['group']} ./#{plugin_dir}"
+    not_if do
+      Etc.getpwuid(File.stat("#{node['wordpress']['dir']}/wp-content/plugins/#{plugin_dir}").uid) == node['wordpress']['install']['user'] && 
+        Etc.getgrgid(File.stat("#{node['wordpress']['dir']}/wp-content/plugins/#{plugin_dir}").gid) == node['wordpress']['install']['group']
+    end
   end
 end
 
