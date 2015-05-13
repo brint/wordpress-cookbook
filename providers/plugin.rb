@@ -34,7 +34,7 @@ def download_and_extract(url, name)
 
   # Extract the archive - assuming zip file for now (most WP plugins ship this way)
   bash "extract-plugin" do
-    cwd "#{Chef::Config[:file_cache_path]}/#{name}"
+    cwd "#{Chef::Config[:file_cache_path]}"
     code "unzip xf ../#{name}.zip"
   end
 end
