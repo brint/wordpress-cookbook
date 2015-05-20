@@ -17,20 +17,17 @@ end
 def add_plugin
   download_and_extract(@new_resource.url, @new_resource.plugin_name)
 
-  plugin_dir = `unzip -l #{Chef::Config[:file_cache_path]}/#{new_resource.plugin_name}.zip |grep " [^/]*/$" |awk '{print $4}'`
+  plugin_dir = find_plugin_dir
 
   bash "overwrite-plugin" do
     cwd "#{node['wordpress']['dir']}/wp-content/plugins"
-    code "unzip -u #{Chef::Config[:file_cache_path]}/#{new_resource.plugin_name}.zip"
+    code "unzip -uo #{Chef::Config[:file_cache_path]}/#{new_resource.plugin_name}.zip"
   end
 
+  #TODO: make this idempotent
   bash "change-plugin-ownership" do
     cwd "#{node['wordpress']['dir']}/wp-content/plugins"
     code "chown -R #{node['wordpress']['install']['user']}:#{node['wordpress']['install']['group']} ./#{plugin_dir}"
-    not_if do
-      Etc.getpwuid(File.stat("#{node['wordpress']['dir']}/wp-content/plugins/#{plugin_dir}").uid) == node['wordpress']['install']['user'] && 
-        Etc.getgrgid(File.stat("#{node['wordpress']['dir']}/wp-content/plugins/#{plugin_dir}").gid) == node['wordpress']['install']['group']
-    end
   end
 end
 
@@ -45,8 +42,14 @@ def download_and_extract(url, name)
   # Extract the archive - assuming zip file for now (most WP plugins ship this way)
   bash "extract-plugin" do
     cwd "#{Chef::Config[:file_cache_path]}"
-    code "unzip -u #{name}.zip"
+    code "unzip -o #{name}.zip"
   end
+end
+
+def find_plugin_dir
+  find_dir = Mixlib::ShellOut.new("unzip -l #{Chef::Config[:file_cache_path]}/#{new_resource.plugin_name}.zip |grep ' [^/]*/$' |awk '{print $4}'")
+  find_dir.run_command
+  find_dir.stdout.chomp
 end
 
 def load_current_resource
@@ -68,7 +71,7 @@ def plugin_exists?(url, name)
 
   download_and_extract(url, name)
 
-  plugin_dir = `unzip -l #{Chef::Config[:file_cache_path]}/#{name}.zip |grep " [^/]*/$" |awk '{print $4}'`
+  plugin_dir = find_plugin_dir
 
   if Dir.exist?(plugin_dir)
     return true
