@@ -16,7 +16,7 @@ end
 
 def add_plugin
   # Retrieve the file
-  remote_file "#{Chef::Config[:file_cache_path]}/#{name}.zip" do
+  remote_file "#{Chef::Config[:file_cache_path]}/#{new_resource.plugin_name}.zip" do
     source url
   end
   
