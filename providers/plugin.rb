@@ -33,7 +33,7 @@ def load_current_resource
   @current_resource.plugin_name(@new_resource.plugin_name)
   @current_resource.url(@new_resource.url)
 
-  if plugin_exists?(@current_resource.url, @current_resource.plugin_name)
+  if plugin_exists?(@current_resource.plugin_name)
     @current_resource.exists = true
   end
 
