@@ -23,7 +23,7 @@ def add_plugin
   # TODO: update/freshen the files in the plugins directory
   bash "install-plugin" do
     cwd "#{node['wordpress']['dir']}/wp-content/plugins"
-    code "temp=(mktemp -d) && unzip -d $temp #{Chef::Config[:file_cache_path]}/#{new_resource.plugin_name}.zip && mkdir #{name} && mv $temp/*/* #{name} && rmdir $temp/* $temp"
+    code "temp=(mktemp -d) && unzip -d $temp #{Chef::Config[:file_cache_path]}/#{new_resource.plugin_name}.zip && mkdir #{new_resource.plugin_name} && mv $temp/*/* #{new_resource.plugin_name} && rmdir $temp/* $temp"
   end
 end
 
