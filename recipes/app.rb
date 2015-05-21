@@ -88,3 +88,6 @@ template "#{node['wordpress']['dir']}/wp-config.php" do
   group node['wordpress']['install']['group']
   action :create
 end
+
+include_recipe "wordpress::plugins"
+
