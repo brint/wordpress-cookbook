@@ -17,7 +17,7 @@ end
 def add_plugin
   # Retrieve the file
   remote_file "#{Chef::Config[:file_cache_path]}/#{new_resource.plugin_name}.zip" do
-    source url
+    source new_resource.url
   end
   
   # TODO: update/freshen the files in the plugins directory
