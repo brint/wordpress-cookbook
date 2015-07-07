@@ -6,8 +6,8 @@ description      "Installs/Configures WordPress"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          "3.0.0"
 
-recipe "WordPress", "Installs and configures WordPress LAMP stack on a single system"
-recipe "WordPress::languages", "Install WordPress translation files"
+recipe "wordpress", "Installs and configures WordPress LAMP stack on a single system"
+recipe "wordpress::languages", "Install WordPress translation files"
 
 %w{ php openssl }.each do |cb|
   depends cb
@@ -28,72 +28,72 @@ depends 'selinux', '~> 0.7'
   supports os
 end
 
-attribute "WordPress/version",
+attribute "wordpress/version",
   :display_name => "WordPress download version",
   :description => "Version of WordPress to download from the WordPress site or 'latest' for the current release.",
   :default => "latest"
 
-attribute "WordPress/checksum",
+attribute "wordpress/checksum",
   :display_name => "WordPress tarball checksum",
   :description => "Checksum of the tarball for the version specified.",
   :default => ""
 
-attribute "WordPress/dir",
+attribute "wordpress/dir",
   :display_name => "WordPress installation directory",
   :description => "Location to place WordPress files.",
   :default => "/var/www/wordpress"
 
-attribute "WordPress/db/database",
+attribute "wordpress/db/database",
   :display_name => "WordPress MySQL database",
   :description => "WordPress will use this MySQL database to store its data.",
   :default => "wordpressdb"
 
-attribute "WordPress/db/user",
+attribute "wordpress/db/user",
   :display_name => "WordPress MySQL user",
   :description => "WordPress will connect to MySQL using this user.",
   :default => "wordpressuser"
 
-attribute "WordPress/db/password",
+attribute "wordpress/db/password",
   :display_name => "WordPress MySQL password",
   :description => "Password for the WordPress MySQL user.",
   :default => "randomly generated"
 
-attribute "WordPress/keys/auth",
+attribute "wordpress/keys/auth",
   :display_name => "WordPress auth key",
   :description => "WordPress auth key.",
   :default => "randomly generated"
 
-attribute "WordPress/keys/secure_auth",
+attribute "wordpress/keys/secure_auth",
   :display_name => "WordPress secure auth key",
   :description => "WordPress secure auth key.",
   :default => "randomly generated"
 
-attribute "WordPress/keys/logged_in",
+attribute "wordpress/keys/logged_in",
   :display_name => "WordPress logged-in key",
   :description => "WordPress logged-in key.",
   :default => "randomly generated"
 
-attribute "WordPress/keys/nonce",
+attribute "wordpress/keys/nonce",
   :display_name => "WordPress nonce key",
   :description => "WordPress nonce key.",
   :default => "randomly generated"
 
-attribute "WordPress/server_aliases",
+attribute "wordpress/server_aliases",
   :display_name => "WordPress Server Aliases",
   :description => "WordPress Server Aliases",
   :default => "FQDN"
 
-attribute "WordPress/languages/lang",
+attribute "wordpress/languages/lang",
   :display_name => "WordPress WPLANG configulation value",
   :description => "WordPress WPLANG configulation value",
   :default => ""
 
-attribute "WordPress/languages/version",
+attribute "wordpress/languages/version",
   :display_name => "Version of WordPress translation file",
   :description => "Version of WordPress translation file",
   :default => ""
 
-attribute "WordPress/languages/projects",
+attribute "wordpress/languages/projects",
   :display_name => "WordPress translation projects",
   :description => "WordPress translation projects",
   :type => "array",
