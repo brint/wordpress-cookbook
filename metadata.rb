@@ -28,6 +28,9 @@ depends 'selinux', '~> 0.7'
   supports os
 end
 
+source_url 'https://github.com/brint/wordpress-cookbook' if respond_to?(:source_url)
+issues_url 'https://github.com/brint/wordpress-cookbook/issues' if respond_to?(:issues_url)
+
 attribute "WordPress/version",
   :display_name => "WordPress download version",
   :description => "Version of WordPress to download from the WordPress site or 'latest' for the current release.",
