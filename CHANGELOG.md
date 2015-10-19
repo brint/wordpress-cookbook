@@ -1,4 +1,6 @@
-CHANGELOG
+wordpress cookbook CHANGELOG
+============================
+This file is used to list changes made in each version of the wordpress cookbook.
 
 v3.0.0 (2015-02-24)
 -------------------
