@@ -1,6 +1,6 @@
 name             "wordpress"
 maintainer       "Brint O'Hearn"
-maintainer_email "cookbooks@opscode.com"
+maintainer_email "brint.ohearn@rackspace.com"
 license          "Apache 2.0"
 description      "Installs/Configures WordPress"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
