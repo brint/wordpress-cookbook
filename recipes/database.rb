@@ -37,7 +37,7 @@ node.save unless Chef::Config[:solo]
 
 db = node['wordpress']['db']
 
-if is_local_host? db['host']
+if local_host? db['host']
 
   # The following is required for the mysql community cookbook to work properly
   include_recipe 'selinux::disabled' if node['platform_family'] == 'rhel'
@@ -64,10 +64,10 @@ if is_local_host? db['host']
   end
 
   mysql_connection_info = {
-    :host     => 'localhost',
-    :username => 'root',
-    :socket   => socket,
-    :password => db['root_password']
+    host: 'localhost',
+    username: 'root',
+    socket: socket,
+    password: db['root_password']
   }
 
   mysql_database db['name'] do

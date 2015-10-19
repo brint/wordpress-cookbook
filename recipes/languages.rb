@@ -18,12 +18,12 @@
 # limitations under the License.
 #
 
-include_recipe "wordpress"
+include_recipe 'wordpress'
 
 directory "#{node['wordpress']['dir']}/wp-content/languages" do
-  owner "root"
-  group "root"
-  mode "0755"
+  owner 'root'
+  group 'root'
+  mode '0755'
   action :create
   recursive true
 end
@@ -40,9 +40,9 @@ unless node['wordpress']['languages']['lang'].to_s.empty? &&
 
     remote_file file do
       source urls[project]
-      owner "root"
-      group "root"
-      mode "0644"
+      owner 'root'
+      group 'root'
+      mode '0644'
       action :create_if_missing
     end
   end
@@ -55,9 +55,9 @@ unless node['wordpress']['languages']['lang'].to_s.empty? &&
 
     remote_file file do
       source urls[project]
-      owner "root"
-      group "root"
-      mode "0644"
+      owner 'root'
+      group 'root'
+      mode '0644'
       action :create_if_missing
     end
   end

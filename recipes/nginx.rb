@@ -19,13 +19,13 @@
 
 node.set_unless['php-fpm']['pools'] = []
 
-include_recipe "php-fpm"
+include_recipe 'php-fpm'
 
-php_fpm_pool "wordpress" do
-  listen "127.0.0.1:9001"
+php_fpm_pool 'wordpress' do
+  listen '127.0.0.1:9001'
   user node['wordpress']['install']['user']
   group node['wordpress']['install']['group']
-  if node['platform'] == 'ubuntu' and node['platform_version'] == '10.04'
+  if node['platform'] == 'ubuntu' && node['platform_version'] == '10.04'
     process_manager 'dynamic'
   end
   listen_owner node['wordpress']['install']['user']
@@ -34,20 +34,20 @@ php_fpm_pool "wordpress" do
   start_servers 5
 end
 
-include_recipe "php::module_mysql"
+include_recipe 'php::module_mysql'
 
 node.set_unless['nginx']['default_site_enabled'] = false
-include_recipe "nginx"
+include_recipe 'nginx'
 
-include_recipe "wordpress::app"
+include_recipe 'wordpress::app'
 
 template "#{node['nginx']['dir']}/sites-enabled/wordpress.conf" do
-  source "nginx.conf.erb"
+  source 'nginx.conf.erb'
   variables(
-    :docroot          => node['wordpress']['dir'],
-    :server_name      => node['wordpress']['server_name'],
-    :server_aliases   => node['wordpress']['server_aliases'],
-    :server_port      => node['wordpress']['server_port']
+    docroot: node['wordpress']['dir'],
+    server_name: node['wordpress']['server_name'],
+    server_aliases: node['wordpress']['server_aliases'],
+    server_port: node['wordpress']['server_port']
   )
   action :create
 end

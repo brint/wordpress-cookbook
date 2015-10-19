@@ -1,103 +1,103 @@
-name             "wordpress"
+name             'wordpress'
 maintainer       "Brint O'Hearn"
-maintainer_email "brint.ohearn@rackspace.com"
-license          "Apache 2.0"
-description      "Installs/Configures WordPress"
+maintainer_email 'brint.ohearn@rackspace.com'
+license          'Apache 2.0'
+description      'Installs/Configures WordPress'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          "3.0.0"
+version          '3.0.0'
 
-recipe "WordPress", "Installs and configures WordPress LAMP stack on a single system"
-recipe "WordPress::languages", "Install WordPress translation files"
+recipe 'WordPress', 'Installs and configures WordPress LAMP stack on a single system'
+recipe 'WordPress::languages', 'Install WordPress translation files'
 
-%w{ php openssl }.each do |cb|
+%w( php openssl ).each do |cb|
   depends cb
 end
 
-depends "apache2", ">= 2.0.0"
-depends "database", ">= 1.6.0"
-depends "mysql", ">= 6.0"
-depends "mysql2_chef_gem", "~> 1.0.1"
-depends "build-essential"
-depends "iis", ">= 1.6.2"
-depends "tar", ">= 0.3.1"
-depends "nginx", "~> 2.7.4"
-depends "php-fpm", "~> 0.6.10"
+depends 'apache2', '>= 2.0.0'
+depends 'database', '>= 1.6.0'
+depends 'mysql', '>= 6.0'
+depends 'mysql2_chef_gem', '~> 1.0.1'
+depends 'build-essential'
+depends 'iis', '>= 1.6.2'
+depends 'tar', '>= 0.3.1'
+depends 'nginx', '~> 2.7.4'
+depends 'php-fpm', '~> 0.6.10'
 depends 'selinux', '~> 0.7'
 
-%w{ debian ubuntu windows centos redhat scientific oracle }.each do |os|
+%w( debian ubuntu windows centos redhat scientific oracle ).each do |os|
   supports os
 end
 
 source_url 'https://github.com/brint/wordpress-cookbook' if respond_to?(:source_url)
 issues_url 'https://github.com/brint/wordpress-cookbook/issues' if respond_to?(:issues_url)
 
-attribute "WordPress/version",
-  :display_name => "WordPress download version",
-  :description => "Version of WordPress to download from the WordPress site or 'latest' for the current release.",
-  :default => "latest"
+attribute 'WordPress/version',
+  display_name: 'WordPress download version',
+  description: "Version of WordPress to download from the WordPress site or 'latest' for the current release.",
+  default: 'latest'
 
-attribute "WordPress/checksum",
-  :display_name => "WordPress tarball checksum",
-  :description => "Checksum of the tarball for the version specified.",
-  :default => ""
+attribute 'WordPress/checksum',
+  display_name: 'WordPress tarball checksum',
+  description: 'Checksum of the tarball for the version specified.',
+  default: ''
 
-attribute "WordPress/dir",
-  :display_name => "WordPress installation directory",
-  :description => "Location to place WordPress files.",
-  :default => "/var/www/wordpress"
+attribute 'WordPress/dir',
+  display_name: 'WordPress installation directory',
+  description: 'Location to place WordPress files.',
+  default: '/var/www/wordpress'
 
-attribute "WordPress/db/database",
-  :display_name => "WordPress MySQL database",
-  :description => "WordPress will use this MySQL database to store its data.",
-  :default => "wordpressdb"
+attribute 'WordPress/db/database',
+  display_name: 'WordPress MySQL database',
+  description: 'WordPress will use this MySQL database to store its data.',
+  default: 'wordpressdb'
 
-attribute "WordPress/db/user",
-  :display_name => "WordPress MySQL user",
-  :description => "WordPress will connect to MySQL using this user.",
-  :default => "wordpressuser"
+attribute 'WordPress/db/user',
+  display_name: 'WordPress MySQL user',
+  description: 'WordPress will connect to MySQL using this user.',
+  default: 'wordpressuser'
 
-attribute "WordPress/db/password",
-  :display_name => "WordPress MySQL password",
-  :description => "Password for the WordPress MySQL user.",
-  :default => "randomly generated"
+attribute 'WordPress/db/password',
+  display_name: 'WordPress MySQL password',
+  description: 'Password for the WordPress MySQL user.',
+  default: 'randomly generated'
 
-attribute "WordPress/keys/auth",
-  :display_name => "WordPress auth key",
-  :description => "WordPress auth key.",
-  :default => "randomly generated"
+attribute 'WordPress/keys/auth',
+  display_name: 'WordPress auth key',
+  description: 'WordPress auth key.',
+  default: 'randomly generated'
 
-attribute "WordPress/keys/secure_auth",
-  :display_name => "WordPress secure auth key",
-  :description => "WordPress secure auth key.",
-  :default => "randomly generated"
+attribute 'WordPress/keys/secure_auth',
+  display_name: 'WordPress secure auth key',
+  description: 'WordPress secure auth key.',
+  default: 'randomly generated'
 
-attribute "WordPress/keys/logged_in",
-  :display_name => "WordPress logged-in key",
-  :description => "WordPress logged-in key.",
-  :default => "randomly generated"
+attribute 'WordPress/keys/logged_in',
+  display_name: 'WordPress logged-in key',
+  description: 'WordPress logged-in key.',
+  default: 'randomly generated'
 
-attribute "WordPress/keys/nonce",
-  :display_name => "WordPress nonce key",
-  :description => "WordPress nonce key.",
-  :default => "randomly generated"
+attribute 'WordPress/keys/nonce',
+  display_name: 'WordPress nonce key',
+  description: 'WordPress nonce key.',
+  default: 'randomly generated'
 
-attribute "WordPress/server_aliases",
-  :display_name => "WordPress Server Aliases",
-  :description => "WordPress Server Aliases",
-  :default => "FQDN"
+attribute 'WordPress/server_aliases',
+  display_name: 'WordPress Server Aliases',
+  description: 'WordPress Server Aliases',
+  default: 'FQDN'
 
-attribute "WordPress/languages/lang",
-  :display_name => "WordPress WPLANG configulation value",
-  :description => "WordPress WPLANG configulation value",
-  :default => ""
+attribute 'WordPress/languages/lang',
+  display_name: 'WordPress WPLANG configulation value',
+  description: 'WordPress WPLANG configulation value',
+  default: ''
 
-attribute "WordPress/languages/version",
-  :display_name => "Version of WordPress translation file",
-  :description => "Version of WordPress translation file",
-  :default => ""
+attribute 'WordPress/languages/version',
+  display_name: 'Version of WordPress translation file',
+  description: 'Version of WordPress translation file',
+  default: ''
 
-attribute "WordPress/languages/projects",
-  :display_name => "WordPress translation projects",
-  :description => "WordPress translation projects",
-  :type => "array",
-  :default => ["main", "admin", "admin/network", "cc"]
+attribute 'WordPress/languages/projects',
+  display_name: 'WordPress translation projects',
+  description: 'WordPress translation projects',
+  type: 'array',
+  default: ['main', 'admin', 'admin/network', 'cc']

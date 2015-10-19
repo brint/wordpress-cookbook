@@ -27,12 +27,12 @@ default['wordpress']['version'] = 'latest'
 
 default['wordpress']['db']['root_password'] = 'my_root_password'
 default['wordpress']['db']['instance_name'] = 'default'
-default['wordpress']['db']['name'] = "wordpressdb"
-default['wordpress']['db']['user'] = "wordpressuser"
+default['wordpress']['db']['name'] = 'wordpressdb'
+default['wordpress']['db']['user'] = 'wordpressuser'
 default['wordpress']['db']['pass'] = nil
 default['wordpress']['db']['prefix'] = 'wp_'
 default['wordpress']['db']['host'] = 'localhost'
-default['wordpress']['db']['port'] = '3306'  # Must be a string
+default['wordpress']['db']['port'] = '3306' # Must be a string
 default['wordpress']['db']['charset'] = 'utf8'
 default['wordpress']['db']['collate'] = ''
 case node['platform']
@@ -70,7 +70,7 @@ default['wordpress']['install']['group'] = node['apache']['group']
 default['wordpress']['languages']['lang'] = ''
 default['wordpress']['languages']['version'] = ''
 default['wordpress']['languages']['repourl'] = 'http://translate.wordpress.org/projects/wp'
-default['wordpress']['languages']['projects'] = ['main', 'admin', 'admin_network', 'continents_cities']
+default['wordpress']['languages']['projects'] = %w(main admin admin_network continents_cities)
 default['wordpress']['languages']['themes'] = []
 default['wordpress']['languages']['project_pathes'] = {
   'main'              => '/',
@@ -78,10 +78,10 @@ default['wordpress']['languages']['project_pathes'] = {
   'admin_network'     => '/admin/network/',
   'continents_cities' => '/cc/'
 }
-%w{ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen twenty}.each do |year|
+%w(ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen twenty).each do |year|
   default['wordpress']['languages']['project_pathes']["twenty#{year}"] = "/twenty#{year}/"
 end
-node['wordpress']['languages']['project_pathes'].each do |project,project_path|
+node['wordpress']['languages']['project_pathes'].each do |project, project_path|
   # http://translate.wordpress.org/projects/wp/3.5.x/admin/network/ja/default/export-translations?format=mo
   default['wordpress']['languages']['urls'][project] =
     node['wordpress']['languages']['repourl'] + '/' +
