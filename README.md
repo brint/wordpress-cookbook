@@ -1,30 +1,24 @@
+Wordpress Cookbook
+==================
+
 [![Build Status](https://travis-ci.org/brint/wordpress-cookbook.svg?branch=master)](https://travis-ci.org/brint/wordpress-cookbook)
 [![Dependency Status](https://gemnasium.com/brint/wordpress-cookbook.svg)](https://gemnasium.com/brint/wordpress-cookbook)
 [![Cookbook Version](https://img.shields.io/cookbook/v/wordpress.svg)](https://supermarket.chef.io/cookbooks/wordpress)
 
-Description
-===========
-
-The Chef WordPress cookbook installs and configures WordPress according to the instructions at http://codex.wordpress.org/Installing_WordPress.
-
-Description
-===========
-
-This cookbook does not set up the WordPress blog. You will need to do this manually by going to http://hostname/wp-admin/install.php (this URL may be different if you change the attribute values).
+The Chef WordPress cookbook installs and configures WordPress according to the instructions at http://codex.wordpress.org/Installing_WordPress.  This cookbook does not set up the WordPress blog. You will need to do this manually by going to http://hostname/wp-admin/install.php (this URL may be different if you change the attribute values).
 
 Requirements
-============
-
-Platform
---------
+------------
+#### Platforms
 
 * Ubuntu 12.04, 14.04
 * RHEL/CentOS 5, 6
 * Windows
 
-Cookbooks
----------
+#### Chef
+- Chef 11+
 
+#### Cookbooks
 * mysql
 * mysql_chef_gem
 * php
@@ -35,7 +29,7 @@ Cookbooks
 * selinux (used to disable selinux for MySQL on RHEL-based systems)
 
 Attributes
-==========
+----------
 
 ### WordPress
 
@@ -71,18 +65,18 @@ Attributes
 * `node['wordpress']['php_options']` - Additional PHP settings for the installation.
 
 Usage
-=====
+-----
 
 Add the "wordpress" recipe to your node's run list or role, or include the recipe in another cookbook.
 
-License and Author
-==================
 
-
+License & Authors
+-----------------
 * Author:: Brint O'Hearn (brint.ohearn@rackspace.com)
 * Author:: Cookbook Engineering Team (cookbooks@chef.io)
 Copyright:: 2010-2015, Chef Software, Inc. (<legal@chef.io>)
 
+```
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -94,3 +88,4 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
+```
