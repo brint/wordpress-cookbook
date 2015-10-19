@@ -1,8 +1,8 @@
 #
 # Cookbook Name:: wordpress
 # Recipe:: database
-# Author:: Lucas Hansen (<lucash@opscode.com>)
-# Author:: Julian C. Dunn (<jdunn@getchef.com>)
+# Author:: Lucas Hansen (<lucash@chef.io>)
+# Author:: Julian C. Dunn (<jdunn@chef.io>)
 # Author:: Craig Tracey (<craigtracey@gmail.com>)
 #
 # Copyright (C) 2013, Chef Software, Inc.

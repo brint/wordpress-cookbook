@@ -1,8 +1,8 @@
 #
-# Author:: Barry Steinglass (<barry@opscode.com>)
+# Author:: Barry Steinglass (<barry@chef.io>)
 # Author:: Koseki Kengo (<koseki@gmail.com>)
-# Author:: Lucas Hansen (<lucash@opscode.com>)
-# Author:: Julian C. Dunn (<jdunn@getchef.com>)
+# Author:: Lucas Hansen (<lucash@chef.io>)
+# Author:: Julian C. Dunn (<jdunn@chef.io>)
 #
 # Cookbook Name:: wordpress
 # Attributes:: wordpress
