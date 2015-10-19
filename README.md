@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/brint/wordpress-cookbook.svg?branch=master)](https://travis-ci.org/brint/wordpress-cookbook)
 [![Dependency Status](https://gemnasium.com/brint/wordpress-cookbook.svg)](https://gemnasium.com/brint/wordpress-cookbook)
+[![Cookbook Version](https://img.shields.io/cookbook/v/wordpress.svg)](https://supermarket.chef.io/cookbooks/wordpress)
 
 Description
 ===========
