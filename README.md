@@ -78,13 +78,10 @@ Add the "wordpress" recipe to your node's run list or role, or include the recip
 License and Author
 ==================
 
-* Author:: Barry Steinglass (barry@opscode.com)
-* Author:: Joshua Timberman (joshua@opscode.com)
-* Author:: Seth Chisamore (schisamo@opscode.com)
-* Author:: Lucas Hansen (lucash@opscode.com)
-* Author:: Julian C. Dunn (jdunn@getchef.com)
 
-Copyright:: 2010-2013, Chef Software, Inc.
+* Author:: Brint O'Hearn (brint.ohearn@rackspace.com)
+* Author:: Cookbook Engineering Team (cookbooks@chef.io)
+Copyright:: 2010-2015, Chef Software, Inc. (<legal@chef.io>)
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
