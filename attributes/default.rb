@@ -40,6 +40,8 @@ when 'ubuntu'
   case node['platform_version']
   when '10.04'
     default['wordpress']['db']['mysql_version'] = '5.1'
+  when '15.04'
+    default['wordpress']['db']['mysql_version'] = '5.6'
   else
     default['wordpress']['db']['mysql_version'] = '5.5'
   end
