@@ -19,7 +19,7 @@ depends "mysql", ">= 6.0"
 depends "mysql2_chef_gem", "~> 1.0.1"
 depends "build-essential"
 depends "iis", ">= 1.6.2"
-depends "tar", ">= 0.3.1"
+depends "ark", "~> 0.9.0"
 depends "nginx", "~> 2.7.4"
 depends "php-fpm", ">= 0.6.10"
 depends 'selinux', '~> 0.7'
