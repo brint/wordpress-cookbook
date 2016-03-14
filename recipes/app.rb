@@ -51,13 +51,14 @@ if platform_family?('windows')
     not_if {::File.exists?("#{node['wordpress']['dir']}\\index.php")}
   end
 else
-  tar_extract node['wordpress']['url'] do
-    target_dir node['wordpress']['dir']
+  ark "wordpress" do
+    url node['wordpress']['url']
+    path node['wordpress']['parent_dir']
     creates File.join(node['wordpress']['dir'], 'index.php')
-    user node['wordpress']['install']['user']
+    owner node['wordpress']['install']['user']
     group node['wordpress']['install']['group']
-    tar_flags [ '--strip-components 1' ]
-    not_if { ::File.exists?("#{node['wordpress']['dir']}/index.php") }
+    strip_components 1
+    action :put
   end
 end
 
