@@ -55,9 +55,8 @@ end
 # The following block is specifically for OS's like CentOS that include a
 # default site as a part of the install. This block will only be triggered if
 # node['nginx']['default_site_enable'] is set to false.
-if node['platform_family'] == 'rhel' && !node['nginx']['default_site_enabled']
-  file File.join(node['nginx']['dir'], 'conf.d', 'default.conf') do
-    action :delete
-    notifies :reload, 'service[nginx]'
-  end
+file File.join(node['nginx']['dir'], 'conf.d', 'default.conf') do
+  action :delete
+  notifies :reload, 'service[nginx]'
+  only_if { node['platform_family'] == 'rhel' && !node['nginx']['default_site_enabled'] }
 end

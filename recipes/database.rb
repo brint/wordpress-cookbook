@@ -20,10 +20,9 @@
 # limitations under the License.
 #
 
-unless platform_family?('windows')
-  mysql_client 'default' do
-    action :create
-  end
+mysql_client 'default' do
+  action :create
+  not_if { node['platform_family'] == 'windows' }
 end
 
 mysql2_chef_gem 'default' do
