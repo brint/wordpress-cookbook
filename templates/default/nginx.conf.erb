@@ -1,6 +1,11 @@
 server {
-        listen <%= @server_port %>;
+        listen <%= @server_port %> <% if port == node['wordpress']['ssl_enabled'] %> ssl<% end %>;
         server_name <%= @server_name %> <%= @server_aliases.join(" ") %>;
+
+        <% if node['wordpress']['ssl_enabled'] %>
+        ssl_certificate <%= node['wordpress']['ssl_certificate'] %>;
+        ssl_certificate_key <%= node['wordpress']['ssl_certificate_key'] %>;
+        <% end %>
 
         access_log   /var/log/nginx/<%= @server_name %>.access.log;
         error_log    /var/log/nginx/<%= @server_name %>.error.log;

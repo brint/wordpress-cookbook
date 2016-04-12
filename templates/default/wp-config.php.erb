@@ -89,6 +89,15 @@ define( 'WP_ALLOW_MULTISITE', true );
 define( '<%= key %>', <%= value %> );
 <% end %>
 
+
+<% if node['wordpress']['error_log'] %>
+@ini_set('log_errors', 'On');
+@ini_set('display_errors', 'Off'); /* enable or disable public display of errors (use 'On' or 'Off') */
+@ini_set('error_log', '<%= node['wordpress']['error_log'] %>'); /* path to server-writable log file */
+@ini_set('error_reporting', E_ALL ^ E_NOTICE ); /* the php parser to  all errors, excreportept notices.  */
+<% end %>
+
+
 /* That's all, stop editing! Happy blogging. */
 
 /** Absolute path to the WordPress directory. */

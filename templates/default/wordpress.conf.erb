@@ -1,7 +1,25 @@
+<% if node['wordpress']['ssl_enabled'] %>
+NameVirtualHost *:80
+
+<VirtualHost *:80>
+  ServerName <%= @params[:server_name] %>
+  Redirect permanent / https://<%= @params[:server_name] %>/
+</VirtualHost>
+<% end %>
+
 <VirtualHost *:<%= @params[:server_port] %>>
   ServerName <%= @params[:server_name] %>
   ServerAlias <% @params[:server_aliases].each do |a| %><%= a %> <% end %>
   DocumentRoot <%= @params[:docroot] %>
+
+  <% if node['wordpress']['ssl_enabled'] %>
+  SSLEngine on
+  SSLCertificateFile <%= node['wordpress']['ssl_certificate'] %>
+  SSLCertificateKeyFile <%= node['wordpress']['ssl_certificate_key'] %>
+  <% if node['wordpress']['ssl_certificate_chain'] %>
+  SSLCertificateChainFile <%= node['wordpress']['ssl_certificate_chain'] %>
+  <% end %>
+  <% end %>
 
   <Directory <%= @params[:docroot] %>>
     Options FollowSymLinks
