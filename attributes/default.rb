@@ -101,3 +101,12 @@ else
 end
 
 default['wordpress']['php_options'] = { 'php_admin_value[upload_max_filesize]' => '50M', 'php_admin_value[post_max_size]' => '55M' }
+
+default['wordpress']['keys']['auth'] = nil
+default['wordpress']['keys']['secure_auth'] = nil
+default['wordpress']['keys']['logged_in'] = nil
+default['wordpress']['keys']['nonce'] = nil
+default['wordpress']['salt']['auth'] = nil
+default['wordpress']['salt']['secure_auth'] = nil
+default['wordpress']['salt']['logged_in'] = nil
+default['wordpress']['salt']['nonce'] = nil

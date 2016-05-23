@@ -32,7 +32,7 @@ end
 ::Chef::Recipe.send(:include, Opscode::OpenSSL::Password)
 ::Chef::Recipe.send(:include, Wordpress::Helpers)
 
-node.set_unless['wordpress']['db']['pass'] = secure_password
+node.default['wordpress']['db']['pass'] = secure_password unless node['wordpress']['db']['pass']
 node.save unless Chef::Config[:solo]
 
 db = node['wordpress']['db']

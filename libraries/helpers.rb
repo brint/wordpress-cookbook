@@ -24,6 +24,8 @@ module Wordpress
     def is_local_host?(host)
       if host == 'localhost' || host == '127.0.0.1' || host == '::1'
         true
+      elsif host =~ /\A\w*:.*\z/
+        false
       else
         require 'socket'
         require 'resolv'
