@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-node.default['php-fpm']['pools'] = [] unless node['php-fpm']['pools']
+node.normal['php-fpm']['pools'] = [] unless node['php-fpm']['pools']
 
 include_recipe "php-fpm"
 
@@ -36,7 +36,7 @@ end
 
 include_recipe "php::module_mysql"
 
-node.default['nginx']['default_site_enabled'] = false unless node['nginx']['default_site_enabled']
+node.normal['nginx']['default_site_enabled'] = false unless node['nginx']['default_site_enabled']
 include_recipe "nginx"
 
 include_recipe "wordpress::app"
