@@ -20,14 +20,14 @@
 include_recipe "wordpress::database"
 
 ::Chef::Recipe.send(:include, Opscode::OpenSSL::Password)
-node.set_unless['wordpress']['keys']['auth'] = secure_password
-node.set_unless['wordpress']['keys']['secure_auth'] = secure_password
-node.set_unless['wordpress']['keys']['logged_in'] = secure_password
-node.set_unless['wordpress']['keys']['nonce'] = secure_password
-node.set_unless['wordpress']['salt']['auth'] = secure_password
-node.set_unless['wordpress']['salt']['secure_auth'] = secure_password
-node.set_unless['wordpress']['salt']['logged_in'] = secure_password
-node.set_unless['wordpress']['salt']['nonce'] = secure_password
+node.normal['wordpress']['keys']['auth'] = secure_password unless node['wordpress']['keys']['auth']
+node.normal['wordpress']['keys']['secure_auth'] = secure_password unless node['wordpress']['keys']['secure_auth']
+node.normal['wordpress']['keys']['logged_in'] = secure_password unless node['wordpress']['keys']['logged_in']
+node.normal['wordpress']['keys']['nonce'] = secure_password unless node['wordpress']['keys']['nonce']
+node.normal['wordpress']['salt']['auth'] = secure_password unless node['wordpress']['salt']['auth']
+node.normal['wordpress']['salt']['secure_auth'] = secure_password unless node['wordpress']['salt']['secure_auth']
+node.normal['wordpress']['salt']['logged_in'] = secure_password unless node['wordpress']['salt']['logged_in']
+node.normal['wordpress']['salt']['nonce'] = secure_password unless node['wordpress']['salt']['nonce']
 node.save unless Chef::Config[:solo]
 
 directory node['wordpress']['dir'] do

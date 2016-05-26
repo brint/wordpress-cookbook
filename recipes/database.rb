@@ -32,12 +32,12 @@ end
 ::Chef::Recipe.send(:include, Opscode::OpenSSL::Password)
 ::Chef::Recipe.send(:include, Wordpress::Helpers)
 
-node.set_unless['wordpress']['db']['pass'] = secure_password
+node.normal['wordpress']['db']['pass'] = secure_password unless node['wordpress']['db']['pass']
 node.save unless Chef::Config[:solo]
 
 db = node['wordpress']['db']
 
-if is_local_host? db['host']
+if is_local_host? db['host'] and db['install']
 
   # The following is required for the mysql community cookbook to work properly
   include_recipe 'selinux::disabled' if node['platform_family'] == 'rhel'
