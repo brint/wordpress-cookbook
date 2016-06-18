@@ -1,4 +1,4 @@
-<% target_host = node['wordpress']['ssl_enabled'] ? node['ipaddress'] : '*' %>
+<% target_host = node['wordpress']['ssl_enabled'] and node['ipaddress'] ? node['ipaddress'] : '*' %>
 
 <% if node['wordpress']['ssl_enabled'] %>
 NameVirtualHost <% target_host %>:80
