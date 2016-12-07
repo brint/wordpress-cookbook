@@ -36,8 +36,13 @@
   </Directory>
 
   LogLevel info
+  <% if node['wordpress']['ssl']['redirect'] %>
   ErrorLog <%= node['apache']['log_dir'] %>/<%= @params[:name] %>-ssl-error.log
   CustomLog <%= node['apache']['log_dir'] %>/<%= @params[:name] %>-ssl-access.log combined
+  <% else %>
+  ErrorLog <%= node['apache']['log_dir'] %>/<%= @params[:name] %>-error.log
+  CustomLog <%= node['apache']['log_dir'] %>/<%= @params[:name] %>-access.log combined
+  <% end %>
 
   RewriteEngine On
 <% unless node['apache']['version'] == '2.4' %>
