@@ -1,3 +1,19 @@
+<% if node['wordpress']['ssl']['redirect'] %>
+<VirtualHost *:80>
+        ServerName <%= @params[:server_name] %>
+        ServerAlias <% @params[:server_aliases].each do |a| %><%= a %> <% end %>
+        DocumentRoot <%= @params[:docroot] %>
+
+        LogLevel info
+        ErrorLog <%= node['apache']['log_dir'] %>/<%= @params[:name] %>-error.log
+        CustomLog <%= node['apache']['log_dir'] %>/<%= @params[:name] %>-access.log combined
+
+        RewriteEngine On
+        RewriteCond %{HTTPS} off
+        RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
+</VirtualHost>
+<% end %>
+
 <VirtualHost *:<%= @params[:server_port] %>>
   ServerName <%= @params[:server_name] %>
   ServerAlias <% @params[:server_aliases].each do |a| %><%= a %> <% end %>
@@ -20,12 +36,25 @@
   </Directory>
 
   LogLevel info
-  ErrorLog <%= node['apache']['log_dir'] %>/<%= @params[:name] %>-error.log
-  CustomLog <%= node['apache']['log_dir'] %>/<%= @params[:name] %>-access.log combined
+  ErrorLog <%= node['apache']['log_dir'] %>/<%= @params[:name] %>-ssl-error.log
+  CustomLog <%= node['apache']['log_dir'] %>/<%= @params[:name] %>-ssl-access.log combined
 
   RewriteEngine On
 <% unless node['apache']['version'] == '2.4' %>
   RewriteLog <%= node['apache']['log_dir'] %>/<%= @application_name %>-rewrite.log
   RewriteLogLevel 0
+<% end %>
+
+<% if node['wordpress']['ssl']['enabled'] %>
+  SSLEngine on
+  <% if node['wordpress']['ssl']['lets_encrypt'] %>
+  SSLCertificateFile /etc/letsencrypt/live/<%= @params[:server_name] %>/cert.pem
+  SSLCertificateKeyFile /etc/letsencrypt/live/<%= @params[:server_name] %>/privkey.pem
+  Include /etc/letsencrypt/options-ssl-apache.conf
+  SSLCertificateChainFile /etc/letsencrypt/live/<%= @params[:server_name] %>/chain.pem
+  <% else %>
+  SSLCertificateFile /etc/ssl/certs/<%= node['wordpress']['ssl']['cert_name'] %>.crt
+  SSLCertificateKeyFile /etc/ssl/private/<%= node['wordpress']['ssl']['cert_name'] %>.key
+  <% end %>
 <% end %>
 </VirtualHost>
