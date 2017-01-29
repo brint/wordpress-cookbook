@@ -1,6 +1,9 @@
-source "https://supermarket.getchef.com"
+source "https://supermarket.chef.io"
 
 metadata
+
+cookbook 'php', '>= 2.2.0'
+cookbook 'apache2', '>= 3.2.2', git: 'https://github.com/sous-chefs/apache2.git'
 
 group :integration do
   cookbook 'apt', '~> 2.6.1'
