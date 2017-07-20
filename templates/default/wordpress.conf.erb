@@ -49,4 +49,8 @@ NameVirtualHost <%= target_host %>:80
   RewriteLog <%= node['apache']['log_dir'] %>/<%= @application_name %>-rewrite.log
   RewriteLogLevel 0
 <% end %>
+
+<% if node['wordpress']['ssl_enabled'] %>
+  SetEnv nokeepalive ssl-unclean-shutdown
+<% end %>
 </VirtualHost>
