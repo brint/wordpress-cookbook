@@ -1,7 +1,6 @@
 <% target_host = (node['wordpress']['ssl_enabled'] and node['ipaddress']) ? node['ipaddress'] : '*' %>
 
 <% if node['wordpress']['ssl_enabled'] %>
-NameVirtualHost <%= target_host %>:80
 
 <VirtualHost <%= target_host %>:80>
   ServerName <%= @params[:server_name] %>
@@ -27,12 +26,7 @@ NameVirtualHost <%= target_host %>:80
   <Directory <%= @params[:docroot] %>>
     Options FollowSymLinks
     AllowOverride FileInfo Options
-    <% if node['apache']['version'] == '2.4' %>
     Require all granted
-    <% else %>
-    Order allow,deny
-    Allow from all
-    <% end %>
   </Directory>
 
   <Directory />
@@ -45,10 +39,6 @@ NameVirtualHost <%= target_host %>:80
   CustomLog <%= node['apache']['log_dir'] %>/<%= @params[:name] %>-access.log combined
 
   RewriteEngine On
-<% unless node['apache']['version'] == '2.4' %>
-  RewriteLog <%= node['apache']['log_dir'] %>/<%= @application_name %>-rewrite.log
-  RewriteLogLevel 0
-<% end %>
 
 <% if node['wordpress']['ssl_enabled'] %>
   SetEnv nokeepalive ssl-unclean-shutdown
