@@ -1,10 +1,9 @@
 <% target_host = (node['wordpress']['ssl_enabled'] and node['ipaddress']) ? node['ipaddress'] : '*' %>
 
 <% if node['wordpress']['ssl_enabled'] %>
-
 <VirtualHost <%= target_host %>:80>
   ServerName <%= @params[:server_name] %>
-  Redirect permanent / https://<%= @params[:server_name] %>/
+  Redirect permanent / https://<%= @params[:server_name] %><%= @params[:server_path] %>
 </VirtualHost>
 <% else %>
 <% end %>

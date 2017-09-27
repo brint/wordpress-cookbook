@@ -61,6 +61,7 @@ default['wordpress']['wp_config_options'] = {}
 
 default['wordpress']['config_perms'] = 0644
 default['wordpress']['server_aliases'] = [node['fqdn']]
+default['wordpress']['server_path'] = '/'
 default['wordpress']['server_port'] = '80'
 default['wordpress']['ssl_enabled'] = false
 
@@ -93,11 +94,13 @@ end
 if node['platform'] == 'windows'
   default['wordpress']['parent_dir'] = "#{ENV['SystemDrive']}\\inetpub"
   default['wordpress']['dir'] = "#{node['wordpress']['parent_dir']}\\wordpress"
+  default['wordpress']['docroot'] = "#{node['wordpress']['parent_dir']}\\wordpress"
   default['wordpress']['url'] = "https://wordpress.org/wordpress-#{node['wordpress']['version']}.zip"
 else
   default['wordpress']['server_name'] = node['fqdn']
   default['wordpress']['parent_dir'] = '/var/www'
   default['wordpress']['dir'] = "#{node['wordpress']['parent_dir']}/wordpress"
+  default['wordpress']['docroot'] = "#{node['wordpress']['parent_dir']}/wordpress"
   default['wordpress']['url'] = "https://wordpress.org/wordpress-#{node['wordpress']['version']}.tar.gz"
 end
 

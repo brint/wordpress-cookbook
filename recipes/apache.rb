@@ -47,7 +47,8 @@ if platform?('windows')
 else
   web_app "wordpress" do
     template "wordpress.conf.erb"
-    docroot node['wordpress']['dir']
+    docroot node['wordpress']['docroot']
+    server_path node['wordpress']['server_path']
     server_name node['wordpress']['server_name']
     server_aliases node['wordpress']['server_aliases']
     server_port node['wordpress']['server_port']
