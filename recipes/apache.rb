@@ -23,6 +23,8 @@ include_recipe "php"
 unless platform? "windows"
   include_recipe "apache2"
   include_recipe "apache2::mod_php"
+
+  package 'php7.0-mysql'
 end
 
 include_recipe "wordpress::app"
