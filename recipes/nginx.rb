@@ -34,8 +34,6 @@ php_fpm_pool "wordpress" do
   start_servers 5
 end
 
-include_recipe "php::module_mysql"
-
 node.set_unless['nginx']['default_site_enabled'] = false
 include_recipe "nginx"
 
