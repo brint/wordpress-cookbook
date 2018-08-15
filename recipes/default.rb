@@ -17,4 +17,22 @@
 # limitations under the License.
 #
 
+users = node[:wordpress][:admin][:users] || []
+
+if users.any?
+  directory File.dirname(node[:wordpress][:admin][:htpasswd]) do
+    owner 'root'
+    group 'root'
+    recursive true
+    mode 0755
+  end
+
+  file node[:wordpress][:admin][:htpasswd] do
+    owner node[:wordpress][:install][:user]
+    group node[:wordpress][:install][:group]
+    mode 0644
+    content users.join("\n")
+  end
+end
+
 include_recipe "wordpress::apache"

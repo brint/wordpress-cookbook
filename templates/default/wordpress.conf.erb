@@ -21,6 +21,23 @@
   <% end %>
   <% end %>
 
+  <% if (node[:wordpress][:admin][:users] || []).any? %>
+  <Files wp-login.php>
+    AuthName "Admins Only"
+    AuthUserFile <%= node['wordpress']['admin']['htpasswd'] %>
+    AuthGroupFile /dev/null
+    AuthType basic
+    require valid-user
+  </Files>
+  <Location /wp-admin/>
+    AuthName "Admins Only"
+    AuthUserFile <%= node['wordpress']['admin']['htpasswd'] %>
+    AuthGroupFile /dev/null
+    AuthType basic
+    require valid-user
+  </Location>
+
+  <% end %>
   <Directory <%= @params[:docroot] %>>
     Options FollowSymLinks
     AllowOverride FileInfo Options
