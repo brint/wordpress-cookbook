@@ -12,6 +12,8 @@
   ServerAlias <% @params[:server_aliases].each do |a| %><%= a %> <% end %>
   DocumentRoot <%= @params[:docroot] %>
 
+  SecRequestBodyLimit 67108864
+
   <% if node['wordpress']['ssl_enabled'] %>
   SSLEngine on
   SSLCertificateFile <%= node['wordpress']['ssl_certificate'] %>

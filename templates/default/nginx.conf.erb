@@ -13,6 +13,8 @@ server {
   root <%= @docroot %>;
   index index.php;
 
+  client_max_body_size 64M;
+
   <% if (node[:wordpress][:admin][:users] || []).any? %>
   location /wp-login.php {
     auth_basic "Authorization Required";
