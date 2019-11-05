@@ -3,6 +3,10 @@ DEPENDENCIES
     git: https://github.com/sous-chefs/apache2.git
     revision: 408c54912f0e362ea9d820a8b43580850c403b9e
   apt (~> 2.6.1)
+  nginx
+    git: https://github.com/sous-chefs/nginx.git
+    revision: 09a227085c5fab9f986fe0cfd010452e07c707f8
+    tag: v8.1.6
   php (>= 4.5.0)
   wordpress
     path: .
@@ -27,8 +31,11 @@ GRAPH
     build-essential (>= 2.4.0)
     mariadb (>= 0.0.0)
     mysql (>= 8.2.0)
-  nginx (10.0.2)
-    ohai (~> 5.2)
+  nginx (8.1.6)
+    build-essential (>= 5.0)
+    ohai (>= 4.1.0)
+    yum-epel (>= 0.0.0)
+    zypper (>= 0.0.0)
   ohai (5.3.0)
   openssl (8.5.5)
   php (7.0.0)
@@ -41,17 +48,18 @@ GRAPH
     windows (>= 0.0.0)
   tar (2.2.0)
   windows (6.0.1)
-  wordpress (3.1.9)
+  wordpress (4.0.0)
     apache2 (>= 5.0.0)
     build-essential (>= 0.0.0)
     database (>= 1.6.0)
     iis (>= 0.0.0)
     mysql (>= 6.0)
     mysql2_chef_gem (>= 1.1.0)
-    nginx (~> 10.0.2)
+    nginx (~> 8.1.6)
     openssl (>= 0.0.0)
     php (>= 0.0.0)
     php-fpm (>= 0.0.0)
     selinux (>= 0.0.0)
     tar (>= 0.0.0)
   yum-epel (3.3.0)
+  zypper (0.4.0)
