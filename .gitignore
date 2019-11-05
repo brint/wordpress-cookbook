@@ -1,5 +1,5 @@
 .vagrant
-Berksfile.lock
+.idea
 Gemfile.lock
 *~
 *#

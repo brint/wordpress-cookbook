@@ -18,11 +18,11 @@ depends "database", ">= 1.6.0"
 depends "mysql", ">= 6.0"
 depends "mysql2_chef_gem", ">= 1.1.0"
 depends "build-essential"
-depends "iis", ">= 1.6.2"
-depends "tar", ">= 0.3.1"
-depends "nginx", "~> 8.1.2"
-depends "php-fpm", "~> 0.8.0"
-depends 'selinux', '~> 0.7'
+depends "iis"
+depends "tar"
+depends "nginx", "~> 10.0.2"
+depends "php-fpm"
+depends 'selinux'
 
 %w{ debian ubuntu windows centos redhat scientific oracle }.each do |os|
   supports os
