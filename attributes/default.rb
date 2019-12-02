@@ -33,7 +33,7 @@ default['wordpress']['db']['pass'] = nil
 default['wordpress']['db']['prefix'] = 'wp_'
 default['wordpress']['db']['host'] = 'localhost'
 default['wordpress']['db']['port'] = '3306'  # Must be a string
-default['wordpress']['db']['charset'] = 'utf8'
+default['wordpress']['db']['charset'] = 'utf8mb4'
 default['wordpress']['db']['collate'] = ''
 case node['platform']
 when 'ubuntu'
@@ -41,7 +41,8 @@ when 'ubuntu'
   when '10.04'
     default['wordpress']['db']['mysql_version'] = '5.1'
   else
-    default['wordpress']['db']['mysql_version'] = '5.7'
+    default['wordpress']['db']['mysql_version'] = '8.0'
+    default['wordpress']['db']['collate'] = 'utf8mb4_0900_ai_ci'
   end
 when 'centos', 'redhat', 'amazon', 'scientific'
   if node['platform_version'].to_i < 6
@@ -49,10 +50,12 @@ when 'centos', 'redhat', 'amazon', 'scientific'
   elsif node['platform_version'].to_i < 7
     default['wordpress']['db']['mysql_version'] = '5.1'
   else
-    default['wordpress']['db']['mysql_version'] = '5.7'
+    default['wordpress']['db']['mysql_version'] = '8.0'
+    default['wordpress']['db']['collate'] = 'utf8mb4_0900_ai_ci'
   end
 else
-  default['wordpress']['db']['mysql_version'] = '5.7'
+  default['wordpress']['db']['mysql_version'] = '8.0'
+  default['wordpress']['db']['collate'] = 'utf8mb4_0900_ai_ci'
 end
 
 default['wordpress']['allow_multisite'] = false
