@@ -34,7 +34,7 @@ php_fpm_pool "wordpress" do
   start_servers 5
 end
 
-package 'php7.0-mysql'
+package 'php7.2-mysql'
 
 node.set_unless['nginx']['default_site_enabled'] = false
 include_recipe "nginx"
