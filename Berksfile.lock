@@ -3,6 +3,9 @@ DEPENDENCIES
     git: https://github.com/sous-chefs/apache2.git
     revision: 408c54912f0e362ea9d820a8b43580850c403b9e
   apt (~> 2.6.1)
+  database
+    git: https://github.com/alejandrod/database.git
+    revision: ef8cd37a0907cc5e830fb541ba07c4e765e3e09b
   nginx
     git: https://github.com/sous-chefs/nginx.git
     revision: 09a227085c5fab9f986fe0cfd010452e07c707f8
@@ -18,7 +21,7 @@ GRAPH
   build-essential (8.2.1)
     mingw (>= 1.1)
     seven_zip (>= 0.0.0)
-  database (6.1.1)
+  database (6.2.0)
     postgresql (>= 1.0.0)
   iis (7.2.0)
     windows (>= 4.1.0)
@@ -41,14 +44,14 @@ GRAPH
   php (7.0.0)
     yum-epel (>= 0.0.0)
   php-fpm (0.8.0)
-  postgresql (7.1.4)
+  postgresql (7.1.5)
   selinux (3.0.0)
   selinux_policy (2.3.4)
   seven_zip (3.1.2)
     windows (>= 0.0.0)
   tar (2.2.0)
   windows (6.0.1)
-  wordpress (4.0.0)
+  wordpress (4.0.2)
     apache2 (>= 5.0.0)
     build-essential (>= 0.0.0)
     database (>= 1.6.0)
