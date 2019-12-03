@@ -6,6 +6,12 @@ DEPENDENCIES
   database
     git: https://github.com/alejandrod/database.git
     revision: ef8cd37a0907cc5e830fb541ba07c4e765e3e09b
+  mysql
+    git: https://github.com/alejandrod/mysql.git
+    revision: f46870cc59b9a3f28c7d05ae935fc9f0672a6bbd
+  mysql2_chef_gem
+    git: https://github.com/alejandrod/mysql2_chef_gem.git
+    revision: 4e8feb1263c7e22ec0c8e9129ae850f607c7bb99
   nginx
     git: https://github.com/sous-chefs/nginx.git
     revision: 09a227085c5fab9f986fe0cfd010452e07c707f8
@@ -29,7 +35,7 @@ GRAPH
     selinux_policy (~> 2.0)
   mingw (2.1.0)
     seven_zip (>= 0.0.0)
-  mysql (8.5.1)
+  mysql (8.5.3)
   mysql2_chef_gem (2.1.0)
     build-essential (>= 2.4.0)
     mariadb (>= 0.0.0)
