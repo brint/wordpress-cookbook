@@ -33,7 +33,7 @@ default['wordpress']['db']['pass'] = nil
 default['wordpress']['db']['prefix'] = 'wp_'
 default['wordpress']['db']['host'] = 'localhost'
 default['wordpress']['db']['port'] = '3306'  # Must be a string
-default['wordpress']['db']['charset'] = 'utf8'
+default['wordpress']['db']['charset'] = 'utf8mb4'
 default['wordpress']['db']['collate'] = ''
 case node['platform']
 when 'ubuntu'
@@ -41,7 +41,8 @@ when 'ubuntu'
   when '10.04'
     default['wordpress']['db']['mysql_version'] = '5.1'
   else
-    default['wordpress']['db']['mysql_version'] = '5.5'
+    default['wordpress']['db']['mysql_version'] = '8.0'
+    default['wordpress']['db']['collate'] = 'utf8mb4_0900_ai_ci'
   end
 when 'centos', 'redhat', 'amazon', 'scientific'
   if node['platform_version'].to_i < 6
@@ -49,10 +50,12 @@ when 'centos', 'redhat', 'amazon', 'scientific'
   elsif node['platform_version'].to_i < 7
     default['wordpress']['db']['mysql_version'] = '5.1'
   else
-    default['wordpress']['db']['mysql_version'] = '5.5'
+    default['wordpress']['db']['mysql_version'] = '8.0'
+    default['wordpress']['db']['collate'] = 'utf8mb4_0900_ai_ci'
   end
 else
-  default['wordpress']['db']['mysql_version'] = '5.5'
+  default['wordpress']['db']['mysql_version'] = '8.0'
+  default['wordpress']['db']['collate'] = 'utf8mb4_0900_ai_ci'
 end
 
 default['wordpress']['allow_multisite'] = false
@@ -61,7 +64,9 @@ default['wordpress']['wp_config_options'] = {}
 
 default['wordpress']['config_perms'] = 0644
 default['wordpress']['server_aliases'] = [node['fqdn']]
+default['wordpress']['server_path'] = '/'
 default['wordpress']['server_port'] = '80'
+default['wordpress']['ssl_enabled'] = false
 
 default['wordpress']['install']['user'] = node['apache']['user']
 default['wordpress']['install']['group'] = node['apache']['group']
@@ -92,12 +97,18 @@ end
 if node['platform'] == 'windows'
   default['wordpress']['parent_dir'] = "#{ENV['SystemDrive']}\\inetpub"
   default['wordpress']['dir'] = "#{node['wordpress']['parent_dir']}\\wordpress"
+  default['wordpress']['docroot'] = "#{node['wordpress']['parent_dir']}\\wordpress"
   default['wordpress']['url'] = "https://wordpress.org/wordpress-#{node['wordpress']['version']}.zip"
 else
   default['wordpress']['server_name'] = node['fqdn']
   default['wordpress']['parent_dir'] = '/var/www'
   default['wordpress']['dir'] = "#{node['wordpress']['parent_dir']}/wordpress"
+  default['wordpress']['docroot'] = "#{node['wordpress']['parent_dir']}/wordpress"
   default['wordpress']['url'] = "https://wordpress.org/wordpress-#{node['wordpress']['version']}.tar.gz"
 end
 
 default['wordpress']['php_options'] = { 'php_admin_value[upload_max_filesize]' => '50M', 'php_admin_value[post_max_size]' => '55M' }
+
+default['wordpress']['admin'] = {
+    htpasswd: "/var/www/admin/.htpasswd"
+}

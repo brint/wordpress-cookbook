@@ -20,13 +20,24 @@
 # limitations under the License.
 #
 
+apt_repository 'mysql' do
+  uri 'http://repo.mysql.com/apt/ubuntu/'
+  components %w(mysql-8.0 mysql-tools)
+  key '5072E1F5'
+  keyserver 'pool.sks-keyservers.net'
+  not_if { ::File.exist?('/etc/apt/sources.list.d/mysql.list') }
+end
+
 mysql_client 'default' do
   action :create
   not_if { node['platform_family'] == 'windows' }
+  version '8.0'
 end
 
 mysql2_chef_gem 'default' do
   action :install
+  gem_version '0.5.3'
+  package_version '8.0'
 end
 
 ::Chef::Recipe.send(:include, Opscode::OpenSSL::Password)

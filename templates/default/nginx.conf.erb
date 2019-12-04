@@ -1,21 +1,47 @@
 server {
-        listen <%= @server_port %>;
-        server_name <%= @server_name %> <%= @server_aliases.join(" ") %>;
+  listen <%= @server_port %> <% if port == node['wordpress']['ssl_enabled'] %> ssl<% end %>;
+  server_name <%= @server_name %> <%= @server_aliases.join(" ") %>;
 
-        access_log   /var/log/nginx/<%= @server_name %>.access.log;
-        error_log    /var/log/nginx/<%= @server_name %>.error.log;
+  <% if node['wordpress']['ssl_enabled'] %>
+  ssl_certificate <%= node['wordpress']['ssl_certificate'] %>;
+  ssl_certificate_key <%= node['wordpress']['ssl_certificate_key'] %>;
+  <% end %>
 
-        root <%= @docroot %>;
-        index index.php;
+  access_log   /var/log/nginx/<%= @server_name %>.access.log;
+  error_log    /var/log/nginx/<%= @server_name %>.error.log;
 
-        location / {
-                try_files $uri $uri/ /index.php?$args;
-        }
+  root <%= @docroot %>;
+  index index.php;
 
-        location ~ \.php$ {
-                try_files $uri =404;
-                include fastcgi_params;
-                fastcgi_pass 127.0.0.1:9001;
-                fastcgi_param  SCRIPT_FILENAME  <%= @docroot %>$fastcgi_script_name;
-        }
+  client_max_body_size 64M;
+
+  <% if (node[:wordpress][:admin][:users] || []).any? %>
+  location /wp-login.php {
+    auth_basic "Authorization Required";
+    auth_basic_user_file /srv/www/rudeotter.com/.htpasswd;
+
+    try_files $uri $uri/ /index.php?$args;
+  }
+  location /wp-admin {
+    location ~ /wp-admin/admin-ajax.php$ {
+      try_files $uri $uri/ /index.php?$args;
+    }
+    location ~* /wp-admin/.*\.php$ {
+      auth_basic "Authorization Required";
+      auth_basic_user_file  /srv/www/rudeotter.com/.htpasswd;
+      try_files $uri $uri/ /index.php?$args;
+    }
+  }
+
+<% end %>
+  location / {
+     try_files $uri $uri/ /index.php?$args;
+  }
+
+  location ~ \.php$ {
+     try_files $uri =404;
+     include fastcgi_params;
+     fastcgi_pass 127.0.0.1:9001;
+     fastcgi_param  SCRIPT_FILENAME  <%= @docroot %>$fastcgi_script_name;
+  }
 }

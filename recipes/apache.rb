@@ -21,9 +21,10 @@ include_recipe "php"
 
 # On Windows PHP comes with the MySQL Module and we use IIS on Windows
 unless platform? "windows"
-  include_recipe "php::module_mysql"
   include_recipe "apache2"
-  include_recipe "apache2::mod_php5"
+  include_recipe "apache2::mod_php"
+
+  package 'php7.2-mysql'
 end
 
 include_recipe "wordpress::app"
@@ -47,7 +48,8 @@ if platform?('windows')
 else
   web_app "wordpress" do
     template "wordpress.conf.erb"
-    docroot node['wordpress']['dir']
+    docroot node['wordpress']['docroot']
+    server_path node['wordpress']['server_path']
     server_name node['wordpress']['server_name']
     server_aliases node['wordpress']['server_aliases']
     server_port node['wordpress']['server_port']

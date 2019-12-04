@@ -69,6 +69,13 @@ Attributes
 
 * `node['wordpress']['php_options']` - Additional PHP settings for the installation.
 
+* `node['wordpress']['ssl_enabled']` - If true, the certificate attributes must be set
+* `node['wordpress']['ssl_certificate']` - Path to the certificate
+* `node['wordpress']['ssl_certificate_key']` - Path to the certificate key
+* `node['wordpress']['ssl_certificate_chain']` - Path to the certificate chain. Only for apache.
+
+* `node['wordpress']['error_log']` - Path to the error log file. Should be writable by the user that runs apache
+
 Usage
 =====
 
