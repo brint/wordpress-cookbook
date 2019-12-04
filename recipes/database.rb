@@ -23,10 +23,13 @@
 mysql_client 'default' do
   action :create
   not_if { node['platform_family'] == 'windows' }
+  version '8.0'
 end
 
 mysql2_chef_gem 'default' do
   action :install
+  gem_version '0.5.3'
+  package_version '8.0'
 end
 
 ::Chef::Recipe.send(:include, Opscode::OpenSSL::Password)
