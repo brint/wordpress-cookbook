@@ -20,6 +20,14 @@
 # limitations under the License.
 #
 
+apt_repository 'mysql' do
+  uri 'http://repo.mysql.com/apt/ubuntu/'
+  components %w(mysql-8.0 mysql-tools)
+  key '5072E1F5'
+  keyserver 'pool.sks-keyservers.net'
+  not_if { ::File.exist?('/etc/apt/sources.list.d/mysql.list') }
+end
+
 mysql_client 'default' do
   action :create
   not_if { node['platform_family'] == 'windows' }
